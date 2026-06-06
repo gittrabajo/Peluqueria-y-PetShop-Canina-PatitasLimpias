@@ -1,0 +1,205 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container my-5">
+    <h1 class="mb-2 fw-bold text-center" style="color: #667eea;">
+        <i class="fas fa-images me-2"></i>Galería de Transformaciones
+    </h1>
+    <p class="text-center text-muted mb-5">Antes y después de nuestros servicios profesionales</p>
+
+    <!-- GALERÍA GRID -->
+    <div class="row g-4">
+        {% if galerias %}
+            {% for galeria in galerias %}
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 shadow-sm overflow-hidden border-0">
+                    <!-- ANTES Y DESPUÉS COMPARATIVO -->
+                    <div class="position-relative bg-dark" style="height: 300px; overflow: hidden;">
+                        <img src="{{ galeria['imagen_antes'] }}" class="img-fluid w-100 h-100" alt="Antes" style="object-fit: cover;">
+                        <div class="position-absolute top-50 start-50 translate-middle badge bg-light text-dark px-3 py-2">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </div>
+                    
+                    <!-- CONTENIDO -->
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold" style="color: #667eea;">{{ galeria['titulo'] }}</h5>
+                        <p class="card-text text-muted small">{{ galeria['descripcion'] }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <!-- GALERÍA DE EJEMPLO -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 shadow-sm overflow-hidden border-0">
+                    <div class="position-relative bg-dark" style="height: 300px; overflow: hidden;">
+                        <img src="https://via.placeholder.com/400x300?text=Golden+Retriever+Antes" class="img-fluid w-100 h-100" alt="Antes" style="object-fit: cover;">
+                        <div class="position-absolute top-50 start-50 translate-middle badge bg-light text-dark px-3 py-2">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold" style="color: #667eea;">Golden Retriever</h5>
+                        <p class="card-text text-muted small">Baño completo y corte profesional con excelente acabado</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 shadow-sm overflow-hidden border-0">
+                    <div class="position-relative bg-dark" style="height: 300px; overflow: hidden;">
+                        <img src="https://via.placeholder.com/400x300?text=Bulldog+Frances+Antes" class="img-fluid w-100 h-100" alt="Antes" style="object-fit: cover;">
+                        <div class="position-absolute top-50 start-50 translate-middle badge bg-light text-dark px-3 py-2">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold" style="color: #667eea;">Bulldog Francés</h5>
+                        <p class="card-text text-muted small">SPA canino completo con tratamiento especial</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 shadow-sm overflow-hidden border-0">
+                    <div class="position-relative bg-dark" style="height: 300px; overflow: hidden;">
+                        <img src="https://via.placeholder.com/400x300?text=Poodle+Antes" class="img-fluid w-100 h-100" alt="Antes" style="object-fit: cover;">
+                        <div class="position-absolute top-50 start-50 translate-middle badge bg-light text-dark px-3 py-2">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold" style="color: #667eea;">Poodle Miniatura</h5>
+                        <p class="card-text text-muted small">Corte de poodle perfecto y deslanado profesional</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 shadow-sm overflow-hidden border-0">
+                    <div class="position-relative bg-dark" style="height: 300px; overflow: hidden;">
+                        <img src="https://via.placeholder.com/400x300?text=Schnauzer+Antes" class="img-fluid w-100 h-100" alt="Antes" style="object-fit: cover;">
+                        <div class="position-absolute top-50 start-50 translate-middle badge bg-light text-dark px-3 py-2">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold" style="color: #667eea;">Schnauzer</h5>
+                        <p class="card-text text-muted small">Grooming completo con perfilado facial</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 shadow-sm overflow-hidden border-0">
+                    <div class="position-relative bg-dark" style="height: 300px; overflow: hidden;">
+                        <img src="https://via.placeholder.com/400x300?text=Shih+Tzu+Antes" class="img-fluid w-100 h-100" alt="Antes" style="object-fit: cover;">
+                        <div class="position-absolute top-50 start-50 translate-middle badge bg-light text-dark px-3 py-2">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold" style="color: #667eea;">Shih Tzu</h5>
+                        <p class="card-text text-muted small">Corte asiático tradicional y peinado elegante</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 shadow-sm overflow-hidden border-0">
+                    <div class="position-relative bg-dark" style="height: 300px; overflow: hidden;">
+                        <img src="https://via.placeholder.com/400x300?text=Cocker+Spaniel+Antes" class="img-fluid w-100 h-100" alt="Antes" style="object-fit: cover;">
+                        <div class="position-absolute top-50 start-50 translate-middle badge bg-light text-dark px-3 py-2">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold" style="color: #667eea;">Cocker Spaniel</h5>
+                        <p class="card-text text-muted small">Deslanado total y corte acorde a raza</p>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- TESTIMONIOS -->
+    <section class="mt-5 pt-5 border-top">
+        <h2 class="mb-5 fw-bold text-center" style="color: #667eea;">
+            <i class="fas fa-star me-2"></i>Testimonios de Nuestros Clientes
+        </h2>
+        
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <i class="fas fa-star" style="color: #ffc107;"></i>
+                            <i class="fas fa-star" style="color: #ffc107;"></i>
+                            <i class="fas fa-star" style="color: #ffc107;"></i>
+                            <i class="fas fa-star" style="color: #ffc107;"></i>
+                            <i class="fas fa-star" style="color: #ffc107;"></i>
+                        </div>
+                        <p class="card-text">"¡Mi perro salió hermoso! Los chicos son muy profesionales y cuidadosos. Mi Golden Retriever ahora siempre quiere venir."</p>
+                        <strong>María González</strong>
+                        <p class="text-muted small">Propietaria de Firulais</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <i class="fas fa-star" style="color: #ffc107;"></i>
+                            <i class="fas fa-star" style="color: #ffc107;"></i>
+                            <i class="fas fa-star" style="color: #ffc107;"></i>
+                            <i class="fas fa-star" style="color: #ffc107;"></i>
+                            <i class="fas fa-star" style="color: #ffc107;"></i>
+                        </div>
+                        <p class="card-text">"Excelente atención y productos de alta calidad. Volveré definitivamente. Mi Bulldog se siente como nuevo después de cada visita."</p>
+                        <strong>Carlos López</strong>
+                        <p class="text-muted small">Propietario de Max</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <i class="fas fa-star" style="color: #ffc107;"></i>
+                            <i class="fas fa-star" style="color: #ffc107;"></i>
+                            <i class="fas fa-star" style="color: #ffc107;"></i>
+                            <i class="fas fa-star" style="color: #ffc107;"></i>
+                            <i class="fas fa-star" style="color: #ffc107;"></i>
+                        </div>
+                        <p class="card-text">"El SPA canino fue increíble. Mi perrita está feliz y su pelaje luce espectacular. Precio muy justo para la calidad."</p>
+                        <strong>Laura Martínez</strong>
+                        <p class="text-muted small">Propietaria de Bella</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="mt-5 text-center bg-gradient p-5 rounded" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+        <h2 class="fw-bold mb-4">¿Quieres un cambio para tu mascota?</h2>
+        <p class="fs-5 mb-4">Agendar ahora y obtén una transformación profesional</p>
+        <a href="{{ url_for('agenda') }}" class="btn btn-light btn-lg me-2">
+            <i class="fas fa-calendar-check me-2"></i> Agendar Cita
+        </a>
+        <button class="btn btn-outline-light btn-lg" onclick="abrirWhatsAppGaleria()">
+            <i class="fab fa-whatsapp me-2"></i> WhatsApp
+        </button>
+    </section>
+</div>
+
+<script>
+    function abrirWhatsAppGaleria() {
+        const mensaje = encodeURIComponent('¡Hola! Vi las transformaciones en la galería y me encantaría que mi perrito reciba el mismo tratamiento. 🐾');
+        window.open(`https://wa.me/56962892769?text=${mensaje}`, '_blank');
+    }
+</script>
+{% endblock %}

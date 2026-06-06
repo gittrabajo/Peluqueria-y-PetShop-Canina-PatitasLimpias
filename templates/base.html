@@ -1,0 +1,185 @@
+<!-- ====================================================
+PLANTILLA BASE - base.html
+==================================================== -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Patitas Limpias - Grooming y Peluquería Canina{% endblock %}</title>
+    
+    <!-- ========== ESTILOS EXTERNOS ========== -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- ========== ESTILOS PERSONALIZADOS ========== -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
+    <!-- ========== BLOQUE PARA ESTILOS ADICIONALES ========== -->
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- ========== NAVBAR PRINCIPAL ========== -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+        <div class="container-fluid">
+            <!-- Logo/Marca -->
+            <a class="navbar-brand" href="{{ url_for('inicio') }}">
+                <i class="fas fa-paw"></i> Patitas Limpias
+            </a>
+            
+            <!-- Botón toggler para dispositivos móviles -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <!-- Menú de navegación -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <!-- Inicio -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('inicio') }}">
+                            <i class="fas fa-home"></i> Inicio
+                        </a>
+                    </li>
+                    
+                    <!-- Servicios -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('servicios_pagina') }}">
+                            <i class="fas fa-scissors"></i> Servicios
+                        </a>
+                    </li>
+                    
+                    <!-- Tienda/Productos -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('tienda_alias') }}">
+                            <i class="fas fa-shopping-bag"></i> Tienda
+                        </a>
+                    </li>
+                    
+                    <!-- Galería -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('galeria_pagina') }}">
+                            <i class="fas fa-images"></i> Galería
+                        </a>
+                    </li>
+                    
+                    <!-- Reservar Cita -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('agenda') }}">
+                            <i class="fas fa-calendar-check"></i> Agendar
+                        </a>
+                    </li>
+                    
+                    <!-- Contacto -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('contacto') }}">
+                            <i class="fas fa-envelope"></i> Contacto
+                        </a>
+                    </li>
+                    
+                    <!-- Admin -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('admin') }}">
+                            <i class="fas fa-cog"></i> Admin
+                        </a>
+                    </li>
+                    
+                    <!-- Carrito (Badge con cantidad) -->
+                    <li class="nav-item">
+                        <a class="nav-link position-relative" href="#" id="btnCarrito">
+                            <i class="fas fa-shopping-cart"></i> 
+                            <span class="badge bg-danger position-absolute top-0 start-100 translate-middle" 
+                                  id="cartCount" style="display: none;">0</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- ========== CONTENIDO PRINCIPAL ========== -->
+    <main class="main-content">
+        {% block content %}{% endblock %}
+    </main>
+    
+    <!-- ========== SIDEBAR CARRITO ========== -->
+    <div id="cartSidebar" class="cart-sidebar">
+        <div class="cart-header">
+            <h5>Tu Carrito</h5>
+            <button type="button" class="btn-close" id="closeCart"></button>
+        </div>
+        
+        <div class="cart-items" id="cartItems">
+            <div class="text-center py-5">
+                <i class="fas fa-shopping-cart fa-3x text-muted mb-3"></i>
+                <p class="text-muted">Tu carrito está vacío</p>
+            </div>
+        </div>
+        
+        <div class="cart-footer">
+            <div class="cart-total mb-3">
+                <strong>Total:</strong>
+                <span id="cartTotal" class="float-end">$0.00</span>
+            </div>
+            <button class="btn btn-primary w-100 mb-2" id="checkoutBtn">
+                <i class="fas fa-credit-card"></i> Comprar
+            </button>
+            <button class="btn btn-outline-secondary w-100" id="continueShopping">
+                Continuar Comprando
+            </button>
+        </div>
+    </div>
+    
+    <!-- ========== OVERLAY DEL CARRITO ========== -->
+    <div id="cartOverlay" class="cart-overlay"></div>
+    
+    <!-- ========== FOOTER ========== -->
+    <footer class="bg-dark text-white mt-5 py-4">
+        <div class="container">
+            <div class="row">
+                <!-- Información -->
+                <div class="col-md-4 mb-3">
+                    <h5>Patitas Limpias</h5>
+                    <p>Servicios de grooming y peluquería canina de calidad profesional.</p>
+                </div>
+                
+                <!-- Enlaces Rápidos -->
+                <div class="col-md-4 mb-3">
+                    <h5>Enlaces Rápidos</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="{{ url_for('inicio') }}" class="text-white-50">Inicio</a></li>
+                        <li><a href="{{ url_for('tienda') }}" class="text-white-50">Tienda</a></li>
+                        <li><a href="{{ url_for('agenda') }}" class="text-white-50">Reservar</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Contacto -->
+                <div class="col-md-4 mb-3">
+                    <h5>Contacto</h5>
+                    <p class="text-white-50">
+                        <i class="fas fa-phone"></i> +56 9 6289 2769<br>
+                        <i class="fas fa-envelope"></i> info@patilaslimpias.com<br>
+                        <i class="fas fa-map-marker-alt"></i> Pedro Donoso 8756, Santiago
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Copyright -->
+            <hr class="bg-white-50">
+            <div class="text-center text-white-50">
+                <p>&copy; 2026 Patitas Limpias. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- ========== SCRIPTS EXTERNOS ========== -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <!-- ========== SCRIPT DEL CARRITO ========== -->
+    <script src="{{ url_for('static', filename='js/carrito.js') }}"></script>
+    
+    <!-- ========== BLOQUE PARA SCRIPTS ADICIONALES ========== -->
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

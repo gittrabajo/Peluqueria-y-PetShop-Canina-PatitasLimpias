@@ -1,0 +1,387 @@
+<!-- ====================================================
+PÁGINA DE TIENDA - tienda.html
+==================================================== -->
+{% extends "base.html" %}
+
+{% block title %}Tienda - Patitas Limpias{% endblock %}
+
+{% block content %}
+<div class="container-fluid my-5">
+    <!-- ========== HEADER DE LA TIENDA ========== -->
+    <div class="row mb-5">
+        <div class="col-lg-12 text-center">
+            <h1 class="display-4 mb-3">
+                <i class="fas fa-shopping-bag" style="color: #667eea;"></i>
+                Nuestra Tienda
+            </h1>
+            <p class="lead text-muted">
+                Descubre nuestros productos premium para el cuidado de tu mascota
+            </p>
+        </div>
+    </div>
+    
+    <!-- ========== FILTROS Y BÚSQUEDA ========== -->
+    <div class="row mb-4">
+        <div class="col-lg-12">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <div class="row align-items-end">
+                        <!-- Búsqueda por nombre -->
+                        <div class="col-md-6">
+                            <label class="form-label">
+                                <i class="fas fa-search"></i> Buscar Productos
+                            </label>
+                            <input type="text" class="form-control" id="busqueda" 
+                                   placeholder="Ej: Champú, Juguete, Alimento...">
+                        </div>
+                        
+                        <!-- Filtro por categoría -->
+                        <div class="col-md-3">
+                            <label class="form-label">
+                                <i class="fas fa-filter"></i> Categoría
+                            </label>
+                            <select class="form-select" id="categoria">
+                                <option value="">Todas las Categorías</option>
+                                <option value="Accesorios">Accesorios</option>
+                                <option value="Alimentos">Alimentos</option>
+                                <option value="Champús">Champús</option>
+                                <option value="Juguetes">Juguetes</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Ordenar -->
+                        <div class="col-md-3">
+                            <label class="form-label">
+                                <i class="fas fa-sort"></i> Ordenar por
+                            </label>
+                            <select class="form-select" id="ordenar">
+                                <option value="nombre">Nombre A-Z</option>
+                                <option value="precio-asc">Precio: Menor a Mayor</option>
+                                <option value="precio-desc">Precio: Mayor a Menor</option>
+                                <option value="nuevo">Más Nuevo</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- ========== GRID DE PRODUCTOS ========== -->
+    <div class="row" id="productosGrid">
+        <!-- Producto 1 -->
+        <div class="col-md-6 col-lg-3 mb-4 producto-item" data-categoria="Champús">
+            <div class="card h-100 shadow-sm hover-product">
+                <!-- Imagen del producto -->
+                <div class="producto-imagen position-relative">
+                    <img src="{{ url_for('static', filename='img/default-product.jpg') }}" 
+                         class="card-img-top" alt="Champú Premium" style="height: 250px; object-fit: cover;">
+                    <span class="badge bg-success position-absolute top-0 end-0 m-2">
+                        <i class="fas fa-check-circle"></i> En Stock
+                    </span>
+                </div>
+                
+                <!-- Información del producto -->
+                <div class="card-body">
+                    <h5 class="card-title">Champú Premium Hipoalergénico</h5>
+                    <p class="card-text text-muted">
+                        Champú suave y efectivo para pieles sensibles. Con ingredientes naturales.
+                    </p>
+                    
+                    <!-- Precio -->
+                    <div class="mb-3">
+                        <span class="h5 text-primary me-2">$24.99</span>
+                        <small class="text-muted"><strike>$29.99</strike></small>
+                    </div>
+                    
+                    <!-- Rating -->
+                    <div class="mb-3">
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star-half text-warning"></i>
+                        <small class="text-muted">(45 reseñas)</small>
+                    </div>
+                </div>
+                
+                <!-- Acciones -->
+                <div class="card-footer bg-white border-top">
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-primary btnAgregarCarrito" 
+                                data-id="1" data-nombre="Champú Premium" data-precio="24.99">
+                            <i class="fas fa-shopping-cart"></i> Agregar al Carrito
+                        </button>
+                        <button class="btn btn-outline-secondary btn-sm">
+                            <i class="fas fa-heart"></i> Favorito
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Producto 2 -->
+        <div class="col-md-6 col-lg-3 mb-4 producto-item" data-categoria="Alimentos">
+            <div class="card h-100 shadow-sm hover-product">
+                <div class="producto-imagen position-relative">
+                    <img src="{{ url_for('static', filename='img/default-product.jpg') }}" 
+                         class="card-img-top" alt="Alimento Premium" style="height: 250px; object-fit: cover;">
+                    <span class="badge bg-success position-absolute top-0 end-0 m-2">
+                        <i class="fas fa-check-circle"></i> En Stock
+                    </span>
+                </div>
+                
+                <div class="card-body">
+                    <h5 class="card-title">Alimento Premium para Perros</h5>
+                    <p class="card-text text-muted">
+                        Fórmula balanceada con proteínas de calidad. Bolsa de 5 kg.
+                    </p>
+                    
+                    <div class="mb-3">
+                        <span class="h5 text-primary me-2">$34.99</span>
+                        <small class="text-muted"><strike>$39.99</strike></small>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <small class="text-muted">(128 reseñas)</small>
+                    </div>
+                </div>
+                
+                <div class="card-footer bg-white border-top">
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-primary btnAgregarCarrito" 
+                                data-id="2" data-nombre="Alimento Premium" data-precio="34.99">
+                            <i class="fas fa-shopping-cart"></i> Agregar al Carrito
+                        </button>
+                        <button class="btn btn-outline-secondary btn-sm">
+                            <i class="fas fa-heart"></i> Favorito
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Producto 3 -->
+        <div class="col-md-6 col-lg-3 mb-4 producto-item" data-categoria="Juguetes">
+            <div class="card h-100 shadow-sm hover-product">
+                <div class="producto-imagen position-relative">
+                    <img src="{{ url_for('static', filename='img/default-product.jpg') }}" 
+                         class="card-img-top" alt="Juguete Interactivo" style="height: 250px; object-fit: cover;">
+                    <span class="badge bg-warning position-absolute top-0 end-0 m-2">
+                        <i class="fas fa-fire"></i> Descuento
+                    </span>
+                </div>
+                
+                <div class="card-body">
+                    <h5 class="card-title">Juguete Interactivo Inteligente</h5>
+                    <p class="card-text text-muted">
+                        Juguete que estimula la inteligencia canina. Material resistente.
+                    </p>
+                    
+                    <div class="mb-3">
+                        <span class="h5 text-primary me-2">$19.99</span>
+                        <small class="text-muted"><strike>$24.99</strike></small>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star-half text-warning"></i>
+                        <small class="text-muted">(87 reseñas)</small>
+                    </div>
+                </div>
+                
+                <div class="card-footer bg-white border-top">
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-primary btnAgregarCarrito" 
+                                data-id="3" data-nombre="Juguete Interactivo" data-precio="19.99">
+                            <i class="fas fa-shopping-cart"></i> Agregar al Carrito
+                        </button>
+                        <button class="btn btn-outline-secondary btn-sm">
+                            <i class="fas fa-heart"></i> Favorito
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Producto 4 -->
+        <div class="col-md-6 col-lg-3 mb-4 producto-item" data-categoria="Accesorios">
+            <div class="card h-100 shadow-sm hover-product">
+                <div class="producto-imagen position-relative">
+                    <img src="{{ url_for('static', filename='img/default-product.jpg') }}" 
+                         class="card-img-top" alt="Collar Premium" style="height: 250px; object-fit: cover;">
+                    <span class="badge bg-success position-absolute top-0 end-0 m-2">
+                        <i class="fas fa-check-circle"></i> En Stock
+                    </span>
+                </div>
+                
+                <div class="card-body">
+                    <h5 class="card-title">Collar Premium con GPS</h5>
+                    <p class="card-text text-muted">
+                        Collar inteligente con GPS incorporado. Localiza a tu mascota en tiempo real.
+                    </p>
+                    
+                    <div class="mb-3">
+                        <span class="h5 text-primary me-2">$89.99</span>
+                        <small class="text-muted"><strike>$99.99</strike></small>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <small class="text-muted">(64 reseñas)</small>
+                    </div>
+                </div>
+                
+                <div class="card-footer bg-white border-top">
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-primary btnAgregarCarrito" 
+                                data-id="4" data-nombre="Collar Premium GPS" data-precio="89.99">
+                            <i class="fas fa-shopping-cart"></i> Agregar al Carrito
+                        </button>
+                        <button class="btn btn-outline-secondary btn-sm">
+                            <i class="fas fa-heart"></i> Favorito
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- ========== MENSAJE CUANDO NO HAY PRODUCTOS ========== -->
+    <div class="row mt-5" id="sinProductos" style="display: none;">
+        <div class="col-lg-12 text-center">
+            <div class="py-5">
+                <i class="fas fa-search fa-5x text-muted mb-3"></i>
+                <h3 class="text-muted">No se encontraron productos</h3>
+                <p class="text-muted">Intenta con otros criterios de búsqueda o categoría</p>
+                <a href="{{ url_for('tienda') }}" class="btn btn-primary">Ver Todos los Productos</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ========== ESTILOS PERSONALIZADOS ========== -->
+<style>
+    .hover-product {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        cursor: pointer;
+    }
+    
+    .hover-product:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15) !important;
+    }
+    
+    .producto-imagen {
+        overflow: hidden;
+        height: 250px;
+    }
+    
+    .producto-imagen img {
+        transition: transform 0.3s ease;
+    }
+    
+    .hover-product:hover .producto-imagen img {
+        transform: scale(1.05);
+    }
+</style>
+
+<!-- ========== SCRIPT PARA FUNCIONALIDADES ========== -->
+<script>
+    // ========== AGREGAR AL CARRITO ==========
+    document.querySelectorAll('.btnAgregarCarrito').forEach(btn => {
+        btn.addEventListener('click', function() {
+            // Obtener datos del producto
+            const id = this.dataset.id;
+            const nombre = this.dataset.nombre;
+            const precio = parseFloat(this.dataset.precio);
+            
+            // Agregar al carrito
+            agregarAlCarrito({
+                id: id,
+                nombre: nombre,
+                precio: precio,
+                cantidad: 1,
+                imagen: '{{ url_for("static", filename="img/default-product.jpg") }}'
+            });
+            
+            // Mostrar feedback
+            this.innerHTML = '<i class="fas fa-check"></i> ¡Agregado!';
+            this.disabled = true;
+            
+            setTimeout(() => {
+                this.innerHTML = '<i class="fas fa-shopping-cart"></i> Agregar al Carrito';
+                this.disabled = false;
+            }, 2000);
+        });
+    });
+    
+    // ========== BÚSQUEDA Y FILTROS ==========
+    document.getElementById('busqueda').addEventListener('keyup', filtrarProductos);
+    document.getElementById('categoria').addEventListener('change', filtrarProductos);
+    document.getElementById('ordenar').addEventListener('change', ordenarProductos);
+    
+    function filtrarProductos() {
+        const busqueda = document.getElementById('busqueda').value.toLowerCase();
+        const categoria = document.getElementById('categoria').value;
+        const productos = document.querySelectorAll('.producto-item');
+        let visibles = 0;
+        
+        productos.forEach(producto => {
+            const nombre = producto.querySelector('.card-title').textContent.toLowerCase();
+            const prod_categoria = producto.dataset.categoria;
+            
+            const coincideBusqueda = nombre.includes(busqueda);
+            const coincideCategoria = categoria === '' || prod_categoria === categoria;
+            
+            if (coincideBusqueda && coincideCategoria) {
+                producto.style.display = 'block';
+                visibles++;
+            } else {
+                producto.style.display = 'none';
+            }
+        });
+        
+        // Mostrar/ocultar mensaje de sin productos
+        document.getElementById('sinProductos').style.display = visibles === 0 ? 'block' : 'none';
+    }
+    
+    function ordenarProductos() {
+        const criterio = document.getElementById('ordenar').value;
+        const grid = document.getElementById('productosGrid');
+        const productos = Array.from(grid.querySelectorAll('.producto-item'));
+        
+        productos.sort((a, b) => {
+            const nombreA = a.querySelector('.card-title').textContent;
+            const nombreB = b.querySelector('.card-title').textContent;
+            const precioA = parseFloat(a.querySelector('.text-primary').textContent.replace('$', ''));
+            const precioB = parseFloat(b.querySelector('.text-primary').textContent.replace('$', ''));
+            
+            switch(criterio) {
+                case 'nombre':
+                    return nombreA.localeCompare(nombreB);
+                case 'precio-asc':
+                    return precioA - precioB;
+                case 'precio-desc':
+                    return precioB - precioA;
+                default:
+                    return 0;
+            }
+        });
+        
+        productos.forEach(p => grid.appendChild(p));
+    }
+</script>
+{% endblock %}

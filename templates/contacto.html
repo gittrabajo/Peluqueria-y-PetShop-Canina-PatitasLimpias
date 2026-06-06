@@ -1,0 +1,260 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container my-5">
+    <h1 class="mb-2 fw-bold text-center" style="color: #667eea;">
+        <i class="fas fa-envelope me-2"></i>Contactanos
+    </h1>
+    <p class="text-center text-muted mb-5">Nos encantaría escuchar de ti. ¡Envíanos tu mensaje!</p>
+
+    <div class="row g-4">
+        <!-- FORMULARIO DE CONTACTO -->
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-5">
+                    <h5 class="card-title mb-4 fw-bold" style="color: #667eea;">
+                        <i class="fas fa-pen-fancy me-2"></i>Envíanos tu Mensaje
+                    </h5>
+                    
+                    {% if request.args.get('success') %}
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <i class="fas fa-check-circle me-2"></i>
+                        <strong>¡Éxito!</strong> Tu mensaje ha sido enviado correctamente. Nos pondremos en contacto pronto.
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                    {% endif %}
+
+                    {% if request.args.get('error') %}
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <i class="fas fa-exclamation-circle me-2"></i>
+                        <strong>Error!</strong> Ocurrió un problema al enviar el mensaje. Intenta nuevamente.
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                    {% endif %}
+
+                    <form method="POST" action="{{ url_for('contacto') }}" id="formContacto">
+                        <!-- Nombre -->
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Nombre Completo <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control form-control-lg" name="nombre" 
+                                   placeholder="Tu nombre completo" required>
+                            <small class="text-muted">Cómo te llamas</small>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Correo Electrónico <span class="text-danger">*</span></label>
+                            <input type="email" class="form-control form-control-lg" name="email" 
+                                   placeholder="tu@email.com" required>
+                            <small class="text-muted">Para poder responderte</small>
+                        </div>
+
+                        <!-- Teléfono (Opcional) -->
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Teléfono (Opcional)</label>
+                            <input type="tel" class="form-control form-control-lg" name="telefono" 
+                                   placeholder="+56 9 XXXX XXXX">
+                            <small class="text-muted">Si deseas que te llamemos</small>
+                        </div>
+
+                        <!-- Asunto -->
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Asunto <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control form-control-lg" name="asunto" 
+                                   placeholder="Tema de tu consulta" required>
+                            <small class="text-muted">¿Cuál es el motivo de tu contacto?</small>
+                        </div>
+
+                        <!-- Mensaje -->
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">Mensaje <span class="text-danger">*</span></label>
+                            <textarea class="form-control form-control-lg" name="mensaje" rows="6" 
+                                      placeholder="Cuéntanos con detalle qué necesitas..." required></textarea>
+                            <small class="text-muted">Sé lo más específico posible para poder ayudarte mejor</small>
+                        </div>
+
+                        <!-- Botón Enviar -->
+                        <button type="submit" class="btn btn-primary btn-lg w-100">
+                            <i class="fas fa-paper-plane me-2"></i> Enviar Mensaje
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- INFORMACIÓN DE CONTACTO -->
+        <div class="col-lg-4">
+            <!-- TELÉFONO -->
+            <div class="card border-0 shadow-sm mb-3">
+                <div class="card-body">
+                    <h6 class="card-title fw-bold mb-2">
+                        <i class="fas fa-phone" style="color: #667eea;"></i> Teléfono
+                    </h6>
+                    <p class="card-text mb-0">
+                        <a href="tel:+56962892769" class="text-decoration-none" style="color: #667eea;">
+                            +56 9 6289 2769
+                        </a>
+                    </p>
+                    <small class="text-muted">Martes a Sábado: 10:00 - 18:00</small>
+                </div>
+            </div>
+
+            <!-- WHATSAPP -->
+            <div class="card border-0 shadow-sm mb-3">
+                <div class="card-body">
+                    <h6 class="card-title fw-bold mb-2">
+                        <i class="fab fa-whatsapp" style="color: #25D366;"></i> WhatsApp
+                    </h6>
+                    <button class="btn btn-sm btn-success w-100" onclick="abrirWhatsAppContacto()">
+                        <i class="fab fa-whatsapp me-2"></i> Contacta por WhatsApp
+                    </button>
+                    <small class="text-muted d-block mt-2">Respuesta inmediata</small>
+                </div>
+            </div>
+
+            <!-- EMAIL -->
+            <div class="card border-0 shadow-sm mb-3">
+                <div class="card-body">
+                    <h6 class="card-title fw-bold mb-2">
+                        <i class="fas fa-envelope" style="color: #667eea;"></i> Correo
+                    </h6>
+                    <p class="card-text mb-0">
+                        <a href="mailto:info@patilaslimpias.com" class="text-decoration-none" style="color: #667eea;">
+                            info@patilaslimpias.com
+                        </a>
+                    </p>
+                    <small class="text-muted">Respondemos en 24 horas</small>
+                </div>
+            </div>
+
+            <!-- UBICACIÓN -->
+            <div class="card border-0 shadow-sm mb-3">
+                <div class="card-body">
+                    <h6 class="card-title fw-bold mb-2">
+                        <i class="fas fa-map-marker-alt" style="color: #667eea;"></i> Ubicación
+                    </h6>
+                    <p class="card-text mb-0">Pedro Donoso 8756</p>
+                    <p class="card-text">Santiago, La Florida</p>
+                    <small class="text-muted">Abierto Martes a Sábado</small>
+                </div>
+            </div>
+
+            <!-- HORARIOS -->
+            <div class="card border-0 shadow-sm" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                <div class="card-body">
+                    <h6 class="card-title fw-bold mb-3">
+                        <i class="fas fa-clock me-2"></i> Horario de Atención
+                    </h6>
+                    <ul class="list-unstyled small">
+                        <li><strong>Martes - Viernes:</strong> 10:00 - 18:00</li>
+                        <li><strong>Sábado:</strong> 10:00 - 15:00</li>
+                        <li><strong>Domingo - Lunes:</strong> Cerrado</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PREGUNTAS FRECUENTES -->
+    <section class="mt-5 pt-5 border-top">
+        <h2 class="mb-5 fw-bold text-center" style="color: #667eea;">
+            <i class="fas fa-question-circle me-2"></i>Preguntas Frecuentes
+        </h2>
+
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body">
+                        <h6 class="card-title fw-bold mb-3" style="color: #667eea;">
+                            <i class="fas fa-calendar me-2"></i>¿Cómo agendo una cita?
+                        </h6>
+                        <p class="card-text small">Puedes agendar directamente desde nuestro sitio web, por WhatsApp o llamando al teléfono. Las citas se atienden con anticipación.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body">
+                        <h6 class="card-title fw-bold mb-3" style="color: #667eea;">
+                            <i class="fas fa-money-bill me-2"></i>¿Cuál es el valor de los servicios?
+                        </h6>
+                        <p class="card-text small">Nuestros precios varían según el servicio y tamaño del perro. Consulta nuestra página de servicios para ver el detalle completo.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body">
+                        <h6 class="card-title fw-bold mb-3" style="color: #667eea;">
+                            <i class="fas fa-ban me-2"></i>¿Puedo cancelar mi cita?
+                        </h6>
+                        <p class="card-text small">Sí, pero es necesario cancelar con 24 horas de anticipación para no perder la reserva.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body">
+                        <h6 class="card-title fw-bold mb-3" style="color: #667eea;">
+                            <i class="fas fa-heart me-2"></i>¿Qué productos utilizan?
+                        </h6>
+                        <p class="card-text small">Utilizamos productos premium de las mejores marcas, seguros y de alta calidad para la salud de tu mascota.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body">
+                        <h6 class="card-title fw-bold mb-3" style="color: #667eea;">
+                            <i class="fas fa-shipping-fast me-2"></i>¿Venden online?
+                        </h6>
+                        <p class="card-text small">Sí, disponemos de una tienda online con productos para el cuidado de tu mascota. Puedes ver nuestro catálogo aquí.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body">
+                        <h6 class="card-title fw-bold mb-3" style="color: #667eea;">
+                            <i class="fas fa-handshake me-2"></i>¿Hacen trabajos especiales?
+                        </h6>
+                        <p class="card-text small">Sí, realizamos trabajos personalizados según tus necesidades. Contáctanos para consultar disponibilidad.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA FINAL -->
+    <section class="mt-5 text-center bg-gradient p-5 rounded" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+        <h2 class="fw-bold mb-4">¿Tienes alguna pregunta?</h2>
+        <p class="fs-5 mb-4">No dudes en contactarnos, estamos aquí para ayudarte</p>
+        <div class="d-flex gap-2 justify-content-center flex-wrap">
+            <a href="{{ url_for('agenda') }}" class="btn btn-light btn-lg">
+                <i class="fas fa-calendar-check me-2"></i> Agendar Cita
+            </a>
+            <button class="btn btn-outline-light btn-lg" onclick="abrirWhatsAppContacto()">
+                <i class="fab fa-whatsapp me-2"></i> WhatsApp
+            </button>
+        </div>
+    </section>
+</div>
+
+    <!-- WHATSAPP FLOTANTE -->
+    <a href="https://wa.me/56962892769" class="whatsapp-btn" title="Contactanos por WhatsApp" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+<script>
+    // Función para abrir WhatsApp desde contacto
+    function abrirWhatsAppContacto() {
+        const mensaje = encodeURIComponent('¡Hola! Quisiera consultar sobre vuestros servicios de peluquería canina. 🐾');
+        window.open(`https://wa.me/56962892769?text=${mensaje}`, '_blank');
+    }
+</script>
+{% endblock %}

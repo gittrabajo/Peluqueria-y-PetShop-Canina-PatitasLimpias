@@ -1,0 +1,166 @@
+<!-- ====================================================
+PÁGINA DE RESERVA DE CITAS - agenda.html
+==================================================== -->
+{% extends "base.html" %}
+
+{% block title %}Reserva tu Cita - Patitas Limpias{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <!-- ========== HEADER DE LA PÁGINA ========== -->
+    <div class="row mb-5">
+        <div class="col-lg-12 text-center">
+            <h1 class="display-4 mb-3">
+                <i class="fas fa-calendar-check" style="color: #667eea;"></i>
+                Reserva tu Hora
+            </h1>
+            <p class="lead text-muted">
+                Elige el servicio que deseas y reserva la fecha y hora que mejor se adapte a ti
+            </p>
+        </div>
+    </div>
+    
+    <!-- ========== SERVICIOS DISPONIBLES ========== -->
+    <div class="row mb-5">
+        <div class="col-lg-12">
+            <h2 class="mb-4">
+                <i class="fas fa-scissors"></i> Nuestros Servicios
+            </h2>
+        </div>
+    </div>
+    
+    <!-- Tarjetas de Servicios -->
+    <div class="row mb-5">
+        <!-- Servicio 1: Baño -->
+        <div class="col-md-6 col-lg-3 mb-4">
+            <div class="card h-100 shadow-sm hover-card">
+                <div class="card-body text-center">
+                    <i class="fas fa-shower fa-3x mb-3" style="color: #667eea;"></i>
+                    <h5 class="card-title">Baño</h5>
+                    <p class="card-text text-muted">Limpieza profunda con productos premium</p>
+                    <small class="d-block mb-2">⏱️ Duración: 45 min</small>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Servicio 2: Baño y Corte -->
+        <div class="col-md-6 col-lg-3 mb-4">
+            <div class="card h-100 shadow-sm hover-card">
+                <div class="card-body text-center">
+                    <i class="fas fa-cut fa-3x mb-3" style="color: #764ba2;"></i>
+                    <h5 class="card-title">Baño y Corte</h5>
+                    <p class="card-text text-muted">Baño + Corte de pelo profesional</p>
+                    <small class="d-block mb-2">⏱️ Duración: 90 min</small>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Servicio 3: Deslanado -->
+        <div class="col-md-6 col-lg-3 mb-4">
+            <div class="card h-100 shadow-sm hover-card">
+                <div class="card-body text-center">
+                    <i class="fas fa-wind fa-3x mb-3" style="color: #f093fb;"></i>
+                    <h5 class="card-title">Deslanado</h5>
+                    <p class="card-text text-muted">Eliminación de pelaje enmarañado</p>
+                    <small class="d-block mb-2">⏱️ Duración: 60 min</small>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Servicio 4: Peluquería Completa -->
+        <div class="col-md-6 col-lg-3 mb-4">
+            <div class="card h-100 shadow-sm hover-card">
+                <div class="card-body text-center">
+                    <i class="fas fa-spa fa-3x mb-3" style="color: #4facfe;"></i>
+                    <h5 class="card-title">Peluquería Completa</h5>
+                    <p class="card-text text-muted">Tratamiento premium full grooming</p>
+                    <small class="d-block mb-2">⏱️ Duración: 120 min</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- ========== BOTÓN AGENDAR VÍA WHATSAPP ========== -->
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="card shadow-lg border-success">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0">
+                        <i class="fab fa-whatsapp"></i> Agendar Visita
+                    </h5>
+                </div>
+                
+                <div class="card-body text-center py-5">
+                    <p class="lead text-muted mb-4">
+                        Para agendar tu cita, contáctanos directamente por WhatsApp
+                    </p>
+                    
+                    <button class="btn btn-success btn-lg" onclick="abrirWhatsApp()">
+                        <i class="fab fa-whatsapp fa-2x me-2"></i>
+                        <span>AGENDAR VISITA POR WHATSAPP</span>
+                    </button>
+                    
+                    <p class="text-muted mt-4 small">
+                        <i class="fas fa-info-circle"></i>
+                        Serás redirigido a WhatsApp con un mensaje automatizado
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- ========== INFORMACIÓN IMPORTANTE ========== -->
+    <div class="row mt-5">
+        <div class="col-lg-8 mx-auto">
+            <div class="alert alert-info" role="alert">
+                <h5 class="alert-heading">
+                    <i class="fas fa-info-circle"></i> Información Importante
+                </h5>
+                <ul class="mb-0">
+                    <li>Las reservas se confirman dentro de 24 horas</li>
+                    <li>Horario de atención: Lunes a Viernes 9:00 AM - 6:00 PM</li>
+                    <li>Sábados: 10:00 AM - 2:00 PM</li>
+                    <li>Cancelaciones deben realizarse con 24 horas de anticipación</li>
+                    <li>Recibirás un SMS de confirmación</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ========== CSS PERSONALIZADO PARA ESTA PÁGINA ========== -->
+<style>
+    .hover-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .hover-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1) !important;
+    }
+</style>
+
+<!-- ========== SCRIPT PARA WHATSAPP ========== -->
+<script>
+    // Número de WhatsApp dinámico desde el servidor
+    const NUMERO_WHATSAPP = '{{ whatsapp_numero }}';
+    
+    // Función para abrir WhatsApp con mensaje automático
+    function abrirWhatsApp() {
+        // Mensaje que se enviará automáticamente
+        const mensaje = encodeURIComponent(
+            '¡Hola! 🐾\n\n' +
+            'Me gustaría agendar una visita para mi mascota en Patitas Limpias.\n\n' +
+            'Por favor, ¿cuáles son los próximos horarios disponibles?\n\n' +
+            'Quedo atenta.\n\n' +
+            'Gracias 😊'
+        );
+        
+        // URL de WhatsApp (formato internacional)
+        const urlWhatsApp = `https://wa.me/${NUMERO_WHATSAPP}?text=${mensaje}`;
+        
+        // Abrir en nueva ventana
+        window.open(urlWhatsApp, '_blank');
+    }
+</script>
+{% endblock %}

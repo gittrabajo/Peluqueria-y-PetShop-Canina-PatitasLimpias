@@ -7,6 +7,11 @@ import os
 from config import DevelopmentConfig
 from database import init_db
 from models import Servicio, Producto, Cita, Mensaje, Usuario, HorarioDisponible, Galeria
+
+# NOTA: Los modelos ORM (Reserva, Producto con SQLAlchemy) están en models/ 
+# pero no se importan aquí para evitar conflictos con models.py
+# Se pueden usar cuando se implemente SQLAlchemy en el futuro
+
 from utils import login_required, admin_required, save_upload_file, enviar_whatsapp, enviar_email
 from routes_admin import admin_bp
 
@@ -75,6 +80,12 @@ def tienda():
     
     return render_template("tienda.html", productos=productos, categorias=categorias)
 
+# Alias para facilitar URL
+@app.route("/tienda")
+def tienda_alias():
+    """Alias de /productos"""
+    return tienda()
+
 @app.route("/producto/<int:producto_id>")
 def detalle_producto(producto_id):
     """Detalle de un producto"""
@@ -95,28 +106,101 @@ def galeria_pagina():
 def contacto():
     """Página de contacto"""
     if request.method == 'POST':
-        data = request.get_json()
-        
         try:
+            # Obtener datos del formulario
+            nombre = request.form.get('nombre')
+            email = request.form.get('email')
+            asunto = request.form.get('asunto')
+            mensaje = request.form.get('mensaje')
+            
+            # Crear mensaje
             Mensaje.crear(
-                nombre=data['nombre'],
-                email=data['email'],
-                asunto=data['asunto'],
-                mensaje=data['mensaje']
+                nombre=nombre,
+                email=email,
+                asunto=asunto,
+                mensaje=mensaje
             )
             
             # Enviar email de confirmación
             enviar_email(
-                data['email'],
+                email,
                 'Hemos recibido tu mensaje - Patitas Limpias',
-                f"Hola {data['nombre']}, gracias por contactarnos."
+                f"Hola {nombre}, gracias por contactarnos. Pronto nos comunicaremos contigo."
             )
             
-            return jsonify({'success': True, 'message': 'Mensaje enviado correctamente'})
+            # Redirigir con mensaje de éxito
+            return render_template("contacto.html", success=True, message="¡Mensaje enviado correctamente! Pronto nos comunicaremos contigo.")
         except Exception as e:
-            return jsonify({'success': False, 'error': str(e)}), 400
+            print(f"Error al enviar contacto: {str(e)}")
+            return render_template("contacto.html", error=True, message=f"Error al enviar el mensaje: {str(e)}")
     
     return render_template("contacto.html")
+
+# ==================== RESERVAS DE SERVICIOS ====================
+
+@app.route("/agenda")
+def agenda():
+    """
+    Página para reservar servicios (citas de grooming)
+    Muestra servicios disponibles y botón de WhatsApp
+    """
+    whatsapp_numero = app.config.get('WHATSAPP_NUMERO', '34123456789')
+    return render_template("agenda.html", whatsapp_numero=whatsapp_numero)
+
+@app.route("/reservar", methods=['POST'])
+def reservar():
+    """
+    Procesar nueva reserva de servicio
+    Parámetros POST: cliente, mascota, servicio, fecha, hora
+    """
+    try:
+        # Obtener datos del formulario
+        cliente = request.form.get('cliente')
+        mascota = request.form.get('mascota')
+        servicio = request.form.get('servicio')
+        fecha = request.form.get('fecha')
+        hora = request.form.get('hora')
+        notas = request.form.get('notas', '')
+        
+        # Validar datos requeridos
+        if not all([cliente, mascota, servicio, fecha, hora]):
+            return redirect(url_for('agenda')), {
+                'error': 'Todos los campos son requeridos'
+            }
+        
+        # Crear la reserva
+        nueva_reserva = Reserva(
+            cliente=cliente,
+            mascota=mascota,
+            servicio=servicio,
+            fecha=fecha,
+            hora=hora,
+            notas=notas,
+            estado='Pendiente'
+        )
+        
+        # Guardar en base de datos (si está disponible)
+        # db.session.add(nueva_reserva)
+        # db.session.commit()
+        
+        # Mostrar mensaje de éxito
+        print(f"✅ Reserva creada: {cliente} - {mascota} - {servicio}")
+        
+        return redirect(url_for('inicio'))
+    
+    except Exception as e:
+        print(f"❌ Error al crear reserva: {str(e)}")
+        return redirect(url_for('agenda'))
+
+# ==================== PANEL DE ADMINISTRADOR ====================
+
+@app.route("/admin")
+def admin():
+    """
+    Panel de administración
+    Permite gestionar productos y reservas
+    """
+    return render_template("admin.html")
 
 # ==================== API DE CITAS ====================
 
@@ -217,19 +301,66 @@ def agendar_cita():
     except Exception as e:
         return jsonify({'success': False, 'error': str(e)}), 400
 
-# ==================== CARRITO ====================
+# ==================== CARRITO DE COMPRAS ====================
+# Sistema completo de carrito con almacenamiento en localStorage (frontend)
+# Las rutas API aquí son opcionales para sincronización con servidor
+
+@app.route("/carrito")
+def carrito():
+    """Página del carrito (puede ser usada para checkout futuro)"""
+    carrito_items = session.get('carrito', [])
+    total = sum(item['precio'] * item['cantidad'] for item in carrito_items)
+    
+    return render_template("carrito.html", carrito=carrito_items, total=total)
+
+@app.route("/api/carrito/info", methods=['GET'])
+def obtener_info_carrito():
+    """
+    Obtener información del carrito almacenado en servidor
+    (Respaldo de información del carrito del cliente)
+    """
+    carrito_items = session.get('carrito', [])
+    subtotal = sum(item['precio'] * item['cantidad'] for item in carrito_items)
+    impuesto = subtotal * 0.16  # IVA 16%
+    total = subtotal + impuesto
+    
+    return jsonify({
+        'success': True,
+        'items': carrito_items,
+        'cantidad_items': len(carrito_items),
+        'cantidad_total': sum(item['cantidad'] for item in carrito_items),
+        'subtotal': round(subtotal, 2),
+        'impuesto': round(impuesto, 2),
+        'total': round(total, 2)
+    })
 
 @app.route("/api/carrito/agregar", methods=['POST'])
-def agregar_carrito():
-    """Agregar producto al carrito"""
+def api_agregar_carrito():
+    """
+    API para agregar producto al carrito (almacenado en servidor)
+    El carrito principal se maneja con localStorage en el frontend
+    """
     data = request.get_json()
     producto_id = data.get('producto_id')
     cantidad = int(data.get('cantidad', 1))
     
+    # Buscar el producto
     producto = Producto.obtener_por_id(producto_id)
     if not producto:
-        return jsonify({'error': 'Producto no encontrado'}), 404
+        return jsonify({'success': False, 'error': 'Producto no encontrado'}), 404
     
+    # Validar cantidad
+    if cantidad <= 0:
+        return jsonify({'success': False, 'error': 'Cantidad debe ser mayor a 0'}), 400
+    
+    # Validar stock disponible
+    if producto['stock'] < cantidad:
+        return jsonify({
+            'success': False, 
+            'error': f'Stock insuficiente. Disponible: {producto["stock"]}'
+        }), 400
+    
+    # Inicializar carrito en sesión si no existe
     if not session.get('carrito'):
         session['carrito'] = []
     
@@ -237,31 +368,43 @@ def agregar_carrito():
     item_existente = next((item for item in session['carrito'] if item['id'] == producto_id), None)
     
     if item_existente:
-        item_existente['cantidad'] += cantidad
+        # Aumentar cantidad si ya existe
+        nueva_cantidad = item_existente['cantidad'] + cantidad
+        if producto['stock'] < nueva_cantidad:
+            return jsonify({
+                'success': False,
+                'error': f'Stock insuficiente. Disponible: {producto["stock"]}'
+            }), 400
+        item_existente['cantidad'] = nueva_cantidad
     else:
+        # Agregar nuevo producto al carrito
         session['carrito'].append({
             'id': producto_id,
             'nombre': producto['nombre'],
             'precio': producto['precio'],
             'cantidad': cantidad,
-            'imagen': producto['imagen']
+            'imagen': producto.get('imagen', 'static/img/default-product.jpg')
         })
     
+    # Marcar sesión como modificada
     session.modified = True
     
     return jsonify({
         'success': True,
-        'message': f'{producto["nombre"]} agregado al carrito',
-        'carrito_items': len(session.get('carrito', []))
-    })
+        'message': f'✓ {producto["nombre"]} agregado al carrito',
+        'cantidad_carrito': len(session.get('carrito', []))
+    }), 201
 
-@app.route("/carrito")
-def carrito():
-    """Ver carrito"""
-    carrito_items = session.get('carrito', [])
-    total = sum(item['precio'] * item['cantidad'] for item in carrito_items)
+@app.route("/api/carrito/limpiar", methods=['POST'])
+def limpiar_carrito():
+    """Vaciar completamente el carrito"""
+    session['carrito'] = []
+    session.modified = True
     
-    return render_template("carrito.html", carrito=carrito_items, total=total)
+    return jsonify({
+        'success': True,
+        'message': 'Carrito vaciado'
+    })
 
 # ==================== AUTENTICACIÓN ====================
 

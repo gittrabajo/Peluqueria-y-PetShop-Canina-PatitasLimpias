@@ -25,8 +25,9 @@ class Config:
     # Negocio
     NOMBRE_NEGOCIO = 'Patitas Limpias'
     EMAIL_NEGOCIO = 'info@patilaslimpias.com'
-    TELEFONO_NEGOCIO = '+34 123 456 789'
-    WHATSAPP_NUMERO = '34123456789'
+    TELEFONO_NEGOCIO = '+56 9 6289 2769'
+    WHATSAPP_NUMERO = '56962892769'
+    DIRECCION_NEGOCIO = 'Pedro Donoso 8756, Santiago, La Florida'
     
     # Horarios de atención (formato 24h)
     HORARIOS_ATENCION = {

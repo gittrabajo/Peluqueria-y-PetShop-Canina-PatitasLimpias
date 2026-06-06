@@ -7,81 +7,232 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .hero-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        
+        .section-card {
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .section-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .section-card .card-header {
+            color: white;
+            font-size: 3rem;
+            padding: 30px;
+            text-align: center;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .section-card .card-body {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .section-card .btn-section {
+            width: 100%;
+            padding: 12px;
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+        
+        .bg-agenda {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .bg-productos {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        
+        .bg-contacto {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+        
+        .bg-galeria {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+    </style>
 </head>
 <body>
     <!-- NAVBAR -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top shadow-sm">
         <div class="container">
-            <a class="navbar-brand" href="#">
-                <i class="fas fa-paw"></i> Patitas Limpias
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-paw" style="color: #667eea;"></i> 
+                <strong>Patitas Limpias</strong>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#hero">Inicio</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#servicios">Servicios</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#agenda">Agenda</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#productos">Productos</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="/">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('agenda') }}">Agendar</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('tienda') }}">Tienda</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('contacto') }}">Contacto</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <!-- 1. HERO PRINCIPAL -->
-    <section id="hero" class="hero-section text-white text-center py-5" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 500px; display: flex; align-items: center;">
+    <!-- HERO PRINCIPAL -->
+    <section class="hero-section text-center py-5">
         <div class="container">
-            <h1 class="display-4 fw-bold mb-4">¡Bienvenido a Patitas Limpias!</h1>
-            <p class="lead mb-4">La mejor peluquería y petshop canino de la ciudad</p>
-            <button class="btn btn-light btn-lg me-2">
-                <i class="fas fa-calendar"></i> Agendar Cita
+            <h1 class="display-3 fw-bold mb-3">🐾 Patitas Limpias 🐾</h1>
+            <p class="lead fs-4 mb-4">La mejor peluquería y petshop canino de la ciudad</p>
+            <p class="fs-5 mb-5">Cuidamos a tu mascota como si fuera propia</p>
+            
+            <button class="btn btn-light btn-lg me-3 mb-2" onclick="abrirWhatsAppHero()">
+                <i class="fab fa-whatsapp me-2"></i> Contactanos por WhatsApp
             </button>
-            <button class="btn btn-outline-light btn-lg">
-                <i class="fas fa-whatsapp"></i> WhatsApp
-            </button>
+            <a href="{{ url_for('tienda') }}" class="btn btn-outline-light btn-lg mb-2">
+                <i class="fas fa-shopping-bag me-2"></i> Ver Tienda
+            </a>
         </div>
     </section>
 
-    <!-- 2. SERVICIOS DE PELUQUERÍA -->
-    <section id="servicios" class="py-5 bg-light">
+    <!-- SECCIONES PRINCIPALES -->
+    <section class="py-5 bg-light">
         <div class="container">
-            <h2 class="text-center mb-5 fw-bold">Nuestros Servicios de Peluquería</h2>
+            <h2 class="text-center mb-5 fw-bold">¿Qué buscas?</h2>
+            
+            <div class="row g-4">
+                <!-- TARJETA: AGENDAR CITA -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="card section-card bg-agenda">
+                        <div class="card-header">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title text-white">Agendar Cita</h5>
+                            <p class="card-text text-white-50 mb-4">
+                                Reserva tu cita de grooming de forma rápida
+                            </p>
+                            <a href="{{ url_for('agenda') }}" class="btn btn-light btn-section">
+                                Ir a Agenda <i class="fas fa-arrow-right ms-2"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TARJETA: PRODUCTOS -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="card section-card bg-productos">
+                        <div class="card-header">
+                            <i class="fas fa-shopping-bag"></i>
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title text-white">Tienda</h5>
+                            <p class="card-text text-white-50 mb-4">
+                                Productos premium para tu mascota
+                            </p>
+                            <a href="{{ url_for('tienda') }}" class="btn btn-light btn-section">
+                                Ver Productos <i class="fas fa-arrow-right ms-2"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TARJETA: CONTACTO -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="card section-card bg-contacto">
+                        <div class="card-header">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title text-white">Contacto</h5>
+                            <p class="card-text text-white-50 mb-4">
+                                Escríbenos tus dudas y consultas
+                            </p>
+                            <a href="{{ url_for('contacto') }}" class="btn btn-light btn-section">
+                                Ir a Contacto <i class="fas fa-arrow-right ms-2"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TARJETA: GALERÍA -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="card section-card bg-galeria">
+                        <div class="card-header">
+                            <i class="fas fa-images"></i>
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title text-white">Galería</h5>
+                            <p class="card-text text-white-50 mb-4">
+                                Antes y después de nuestros trabajos
+                            </p>
+                            <a href="{{ url_for('galeria_pagina') }}" class="btn btn-light btn-section">
+                                Ver Galería <i class="fas fa-arrow-right ms-2"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- INFORMACIÓN DE CONTACTO RÁPIDO -->
+    <section class="py-5">
+        <div class="container">
             <div class="row g-4">
                 <div class="col-md-6 col-lg-3">
-                    <div class="card text-center h-100">
+                    <div class="card text-center shadow-sm">
                         <div class="card-body">
-                            <i class="fas fa-scissors fa-3x mb-3" style="color: #667eea;"></i>
-                            <h5 class="card-title">Corte de Pelo</h5>
-                            <p class="card-text">Cortes profesionales adaptados a la raza de tu mascota</p>
+                            <i class="fas fa-map-marker-alt fa-2x mb-3" style="color: #667eea;"></i>
+                            <h6 class="card-title fw-bold">Ubicación</h6>
+                            <p class="card-text text-muted small">Pedro Donoso 8756, Santiago La Florida</p>
                         </div>
                     </div>
                 </div>
+                
                 <div class="col-md-6 col-lg-3">
-                    <div class="card text-center h-100">
+                    <div class="card text-center shadow-sm">
                         <div class="card-body">
-                            <i class="fas fa-shower fa-3x mb-3" style="color: #667eea;"></i>
-                            <h5 class="card-title">Baño y Secado</h5>
-                            <p class="card-text">Baño relajante con productos premium para tu perrito</p>
+                            <i class="fas fa-phone fa-2x mb-3" style="color: #667eea;"></i>
+                            <h6 class="card-title fw-bold">Teléfono</h6>
+                            <p class="card-text text-muted small">+56 9 6289 2769</p>
                         </div>
                     </div>
                 </div>
+                
                 <div class="col-md-6 col-lg-3">
-                    <div class="card text-center h-100">
+                    <div class="card text-center shadow-sm">
                         <div class="card-body">
-                            <i class="fas fa-brush fa-3x mb-3" style="color: #667eea;"></i>
-                            <h5 class="card-title">Tratamientos</h5>
-                            <p class="card-text">Tratamientos especiales para la piel y pelaje</p>
+                            <i class="fas fa-envelope fa-2x mb-3" style="color: #667eea;"></i>
+                            <h6 class="card-title fw-bold">Email</h6>
+                            <p class="card-text text-muted small">info@patilaslimpias.com</p>
                         </div>
                     </div>
                 </div>
+                
                 <div class="col-md-6 col-lg-3">
-                    <div class="card text-center h-100">
+                    <div class="card text-center shadow-sm">
                         <div class="card-body">
-                            <i class="fas fa-heart fa-3x mb-3" style="color: #667eea;"></i>
-                            <h5 class="card-title">SPA Canino</h5>
-                            <p class="card-text">Experiencia de spa completa para tu mascota</p>
+                            <i class="fas fa-clock fa-2x mb-3" style="color: #667eea;"></i>
+                            <h6 class="card-title fw-bold">Horario</h6>
+                            <p class="card-text text-muted small">Mar-Sab: 10:00 - 18:00</p>
                         </div>
                     </div>
                 </div>
@@ -89,58 +240,31 @@
         </div>
     </section>
 
-    <!-- 3. AGENDA ONLINE -->
-    <section id="agenda" class="py-5">
-        <div class="container">
-            <h2 class="text-center mb-5 fw-bold">Agenda tu Cita Online</h2>
-            <div class="row">
-                <div class="col-lg-8 mx-auto">
-                    <div class="card">
-                        <div class="card-body p-5">
-                            <form>
-                                <div class="row mb-3">
-                                    <div class="col-md-6">
-                                        <label class="form-label">Nombre de la Mascota</label>
-                                        <input type="text" class="form-control" placeholder="Ej: Firulais">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="form-label">Raza</label>
-                                        <input type="text" class="form-control" placeholder="Ej: Golden Retriever">
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <div class="col-md-6">
-                                        <label class="form-label">Fecha</label>
-                                        <input type="date" class="form-control">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="form-label">Hora</label>
-                                        <input type="time" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Servicio</label>
-                                    <select class="form-select">
-                                        <option>Selecciona un servicio</option>
-                                        <option>Corte de Pelo</option>
-                                        <option>Baño y Secado</option>
-                                        <option>Tratamientos</option>
-                                        <option>SPA Canino</option>
-                                    </select>
-                                </div>
-                                <button type="submit" class="btn btn-primary w-100">
-                                    <i class="fas fa-calendar-check"></i> Reservar Cita
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <!-- FOOTER -->
+    <footer class="bg-dark text-white py-4 mt-5">
+        <div class="container text-center">
+            <p class="mb-0">&copy; 2024 Patitas Limpias. Todos los derechos reservados.</p>
+            <small>Desarrollado con <i class="fas fa-heart" style="color: #FF6B9D;"></i> para tu mascota</small>
         </div>
-    </section>
+    </footer>
 
-    <!-- 4. ANTES Y DESPUÉS -->
-    <section class="py-5 bg-light">
+    <!-- WHATSAPP FLOTANTE -->
+    <a href="https://wa.me/56962892769" class="whatsapp-btn" title="Contactanos por WhatsApp" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Función para abrir WhatsApp desde el hero
+        function abrirWhatsAppHero() {
+            const mensaje = encodeURIComponent('¡Hola! Me gustaría conocer más sobre vuestros servicios de peluquería canina. 🐾');
+            window.open(`https://wa.me/56962892769?text=${mensaje}`, '_blank');
+        }
+    </script>
+</body>
+</html>
         <div class="container">
             <h2 class="text-center mb-5 fw-bold">Antes y Después</h2>
             <div class="row g-4">
@@ -197,7 +321,7 @@
                             <p class="card-text">Champú especial para perros con ingredientes naturales</p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <span class="h5 mb-0">$25.99</span>
-                                <button class="btn btn-sm btn-primary">
+                                <button class="btn btn-sm btn-primary" onclick="agregarAlCarrito('Champú Premium', 25.99, 'https://via.placeholder.com/300x200?text=Producto+1')">
                                     <i class="fas fa-shopping-cart"></i>
                                 </button>
                             </div>
@@ -212,7 +336,7 @@
                             <p class="card-text">Acondicionador hidratante para pelaje suave y brillante</p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <span class="h5 mb-0">$22.99</span>
-                                <button class="btn btn-sm btn-primary">
+                                <button class="btn btn-sm btn-primary" onclick="agregarAlCarrito('Acondicionador', 22.99, 'https://via.placeholder.com/300x200?text=Producto+2')">
                                     <i class="fas fa-shopping-cart"></i>
                                 </button>
                             </div>
@@ -227,7 +351,7 @@
                             <p class="card-text">Kit completo de aseo para cuidado diario de tu perro</p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <span class="h5 mb-0">$45.99</span>
-                                <button class="btn btn-sm btn-primary">
+                                <button class="btn btn-sm btn-primary" onclick="agregarAlCarrito('Kit de Aseo', 45.99, 'https://via.placeholder.com/300x200?text=Producto+3')">
                                     <i class="fas fa-shopping-cart"></i>
                                 </button>
                             </div>
@@ -244,36 +368,36 @@
             <h2 class="text-center mb-5 fw-bold">Categorías PetShop</h2>
             <div class="row g-3">
                 <div class="col-md-6 col-lg-3">
-                    <div class="card text-center bg-primary text-white h-100 d-flex align-items-center justify-content-center" style="min-height: 200px;">
+                    <a href="{{ url_for('tienda') }}?categoria=alimentos" class="card text-center bg-primary text-white h-100 d-flex align-items-center justify-content-center" style="min-height: 200px; text-decoration: none; cursor: pointer;">
                         <div class="card-body">
                             <i class="fas fa-utensils fa-3x mb-3"></i>
                             <h5 class="card-title">Alimentos</h5>
                         </div>
-                    </div>
+                    </a>
                 </div>
                 <div class="col-md-6 col-lg-3">
-                    <div class="card text-center bg-success text-white h-100 d-flex align-items-center justify-content-center" style="min-height: 200px;">
+                    <a href="{{ url_for('tienda') }}?categoria=accesorios" class="card text-center bg-success text-white h-100 d-flex align-items-center justify-content-center" style="min-height: 200px; text-decoration: none; cursor: pointer;">
                         <div class="card-body">
                             <i class="fas fa-bed fa-3x mb-3"></i>
                             <h5 class="card-title">Accesorios</h5>
                         </div>
-                    </div>
+                    </a>
                 </div>
                 <div class="col-md-6 col-lg-3">
-                    <div class="card text-center bg-warning text-white h-100 d-flex align-items-center justify-content-center" style="min-height: 200px;">
+                    <a href="{{ url_for('tienda') }}?categoria=juguetes" class="card text-center bg-warning text-white h-100 d-flex align-items-center justify-content-center" style="min-height: 200px; text-decoration: none; cursor: pointer;">
                         <div class="card-body">
                             <i class="fas fa-ball fa-3x mb-3"></i>
                             <h5 class="card-title">Juguetes</h5>
                         </div>
-                    </div>
+                    </a>
                 </div>
                 <div class="col-md-6 col-lg-3">
-                    <div class="card text-center bg-danger text-white h-100 d-flex align-items-center justify-content-center" style="min-height: 200px;">
+                    <a href="{{ url_for('tienda') }}?categoria=salud" class="card text-center bg-danger text-white h-100 d-flex align-items-center justify-content-center" style="min-height: 200px; text-decoration: none; cursor: pointer;">
                         <div class="card-body">
                             <i class="fas fa-shield-alt fa-3x mb-3"></i>
                             <h5 class="card-title">Salud</h5>
                         </div>
-                    </div>
+                    </a>
                 </div>
             </div>
         </div>
@@ -412,22 +536,22 @@
                     <div class="card">
                         <div class="card-body p-5">
                             <h5 class="card-title mb-4">Envíanos tu Mensaje</h5>
-                            <form>
+                            <form method="POST" action="{{ url_for('contacto') }}" id="formContacto">
                                 <div class="mb-3">
                                     <label class="form-label">Nombre</label>
-                                    <input type="text" class="form-control" placeholder="Tu nombre">
+                                    <input type="text" class="form-control" name="nombre" placeholder="Tu nombre" required>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Email</label>
-                                    <input type="email" class="form-control" placeholder="tu@email.com">
+                                    <input type="email" class="form-control" name="email" placeholder="tu@email.com" required>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Asunto</label>
-                                    <input type="text" class="form-control" placeholder="Asunto del mensaje">
+                                    <input type="text" class="form-control" name="asunto" placeholder="Asunto del mensaje" required>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Mensaje</label>
-                                    <textarea class="form-control" rows="5" placeholder="Tu mensaje aquí..."></textarea>
+                                    <textarea class="form-control" name="mensaje" rows="5" placeholder="Tu mensaje aquí..." required></textarea>
                                 </div>
                                 <button type="submit" class="btn btn-primary w-100">
                                     <i class="fas fa-paper-plane"></i> Enviar Mensaje
@@ -489,6 +613,48 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Scripts personalizados para funcionalidad -->
+    <script>
+        // ========== FUNCIÓN WHATSAPP HERO ==========
+        function abrirWhatsAppHero() {
+            const mensaje = encodeURIComponent('¡Hola! Me gustaría conocer más sobre vuestros servicios de peluquería canina. 🐾');
+            window.open(`https://wa.me/34123456789?text=${mensaje}`, '_blank');
+        }
+        
+        // ========== FUNCIÓN AGREGAR AL CARRITO ==========
+        function agregarAlCarrito(nombre, precio, imagen) {
+            // Crear objeto del producto
+            const producto = {
+                id: Date.now(),
+                nombre: nombre,
+                precio: precio,
+                cantidad: 1,
+                imagen: imagen
+            };
+            
+            // Obtener carrito actual de localStorage
+            let carrito = JSON.parse(localStorage.getItem('carrito') || '[]');
+            
+            // Buscar si el producto ya existe
+            const productoExistente = carrito.find(p => p.nombre === nombre);
+            
+            if (productoExistente) {
+                // Si existe, incrementar cantidad
+                productoExistente.cantidad += 1;
+            } else {
+                // Si no existe, agregarlo
+                carrito.push(producto);
+            }
+            
+            // Guardar en localStorage
+            localStorage.setItem('carrito', JSON.stringify(carrito));
+            
+            // Mostrar confirmación
+            alert(`✅ ${nombre} agregado al carrito!\\n\\nCarrito: ${carrito.length} producto(s)`);
+        }
+    </script>
+    
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>

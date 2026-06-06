@@ -1,0 +1,344 @@
+<!-- ====================================================
+PANEL ADMINISTRADOR - admin.html
+==================================================== -->
+{% extends "base.html" %}
+
+{% block title %}Panel Administrador - Patitas Limpias{% endblock %}
+
+{% block content %}
+<div class="container-fluid my-5">
+    <!-- ========== HEADER DEL PANEL ========== -->
+    <div class="row mb-4">
+        <div class="col-lg-12">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h1 class="display-5">
+                        <i class="fas fa-cog" style="color: #667eea;"></i>
+                        Panel Administrador
+                    </h1>
+                    <p class="text-muted">Gestiona productos, reservas y configuración</p>
+                </div>
+                <div>
+                    <a href="{{ url_for('inicio') }}" class="btn btn-outline-secondary">
+                        <i class="fas fa-arrow-left"></i> Volver a Inicio
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- ========== TARJETAS DE RESUMEN ========== -->
+    <div class="row mb-4">
+        <!-- Tarjeta: Total de Productos -->
+        <div class="col-md-3 mb-3">
+            <div class="card shadow-sm border-left-primary">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-muted text-uppercase mb-1">
+                                <i class="fas fa-box"></i> Total Productos
+                            </h6>
+                            <h3 class="mb-0" id="totalProductos">0</h3>
+                        </div>
+                        <div style="font-size: 2.5rem; opacity: 0.2;">
+                            <i class="fas fa-shopping-bag"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tarjeta: Total de Reservas -->
+        <div class="col-md-3 mb-3">
+            <div class="card shadow-sm border-left-success">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-muted text-uppercase mb-1">
+                                <i class="fas fa-calendar"></i> Total Reservas
+                            </h6>
+                            <h3 class="mb-0" id="totalReservas">0</h3>
+                        </div>
+                        <div style="font-size: 2.5rem; opacity: 0.2;">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tarjeta: Reservas Pendientes -->
+        <div class="col-md-3 mb-3">
+            <div class="card shadow-sm border-left-warning">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-muted text-uppercase mb-1">
+                                <i class="fas fa-clock"></i> Pendientes
+                            </h6>
+                            <h3 class="mb-0" id="reservasPendientes">0</h3>
+                        </div>
+                        <div style="font-size: 2.5rem; opacity: 0.2;">
+                            <i class="fas fa-hourglass"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tarjeta: Stock Bajo -->
+        <div class="col-md-3 mb-3">
+            <div class="card shadow-sm border-left-danger">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-muted text-uppercase mb-1">
+                                <i class="fas fa-exclamation"></i> Stock Bajo
+                            </h6>
+                            <h3 class="mb-0" id="stockBajo">0</h3>
+                        </div>
+                        <div style="font-size: 2.5rem; opacity: 0.2;">
+                            <i class="fas fa-warehouse"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- ========== TABS DE ADMINISTRACIÓN ========== -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card shadow-lg">
+                <!-- Tabs Navigation -->
+                <div class="card-header bg-white border-bottom">
+                    <ul class="nav nav-tabs card-header-tabs" role="tablist">
+                        <!-- Tab: Gestión de Productos -->
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="productosTab" data-bs-toggle="tab" 
+                                    data-bs-target="#productosPanel" type="button" role="tab">
+                                <i class="fas fa-cubes"></i> Productos
+                            </button>
+                        </li>
+                        
+                        <!-- Tab: Gestión de Reservas -->
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="reservasTab" data-bs-toggle="tab" 
+                                    data-bs-target="#reservasPanel" type="button" role="tab">
+                                <i class="fas fa-list"></i> Reservas
+                            </button>
+                        </li>
+                        
+                        <!-- Tab: Configuración -->
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="configTab" data-bs-toggle="tab" 
+                                    data-bs-target="#configPanel" type="button" role="tab">
+                                <i class="fas fa-sliders-h"></i> Configuración
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Tabs Content -->
+                <div class="card-body">
+                    <div class="tab-content">
+                        <!-- ========== PANEL DE PRODUCTOS ========== -->
+                        <div class="tab-pane fade show active" id="productosPanel" role="tabpanel">
+                            <div class="mb-3">
+                                <h5 class="mb-3">
+                                    <i class="fas fa-boxes"></i> Gestión de Productos
+                                </h5>
+                                <a href="#" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalProducto">
+                                    <i class="fas fa-plus"></i> Agregar Producto
+                                </a>
+                            </div>
+                            
+                            <!-- Tabla de Productos -->
+                            <div class="table-responsive">
+                                <table class="table table-hover" id="productosTable">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>#ID</th>
+                                            <th>Nombre</th>
+                                            <th>Categoría</th>
+                                            <th>Precio</th>
+                                            <th>Stock</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="6" class="text-center text-muted py-4">
+                                                <i class="fas fa-inbox fa-2x mb-2"></i>
+                                                <p>No hay productos registrados aún</p>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <!-- ========== PANEL DE RESERVAS ========== -->
+                        <div class="tab-pane fade" id="reservasPanel" role="tabpanel">
+                            <div class="mb-3">
+                                <h5 class="mb-3">
+                                    <i class="fas fa-calendar-alt"></i> Gestión de Reservas
+                                </h5>
+                            </div>
+                            
+                            <!-- Tabla de Reservas -->
+                            <div class="table-responsive">
+                                <table class="table table-hover" id="reservasTable">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>#ID</th>
+                                            <th>Cliente</th>
+                                            <th>Mascota</th>
+                                            <th>Servicio</th>
+                                            <th>Fecha y Hora</th>
+                                            <th>Estado</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="7" class="text-center text-muted py-4">
+                                                <i class="fas fa-inbox fa-2x mb-2"></i>
+                                                <p>No hay reservas registradas aún</p>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <!-- ========== PANEL DE CONFIGURACIÓN ========== -->
+                        <div class="tab-pane fade" id="configPanel" role="tabpanel">
+                            <h5 class="mb-3">
+                                <i class="fas fa-gears"></i> Configuración del Sistema
+                            </h5>
+                            
+                            <div class="row">
+                                <!-- Información del Negocio -->
+                                <div class="col-md-6">
+                                    <div class="card bg-light">
+                                        <div class="card-header">
+                                            <h6 class="mb-0">Información del Negocio</h6>
+                                        </div>
+                                        <div class="card-body">
+                                            <form>
+                                                <div class="mb-3">
+                                                    <label class="form-label">Nombre del Negocio</label>
+                                                    <input type="text" class="form-control" value="Patitas Limpias" disabled>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label">Email</label>
+                                                    <input type="email" class="form-control" value="info@patilaslimpias.com" disabled>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label">Teléfono</label>
+                                                    <input type="tel" class="form-control" value="+34 123 456 789" disabled>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Base de Datos -->
+                                <div class="col-md-6">
+                                    <div class="card bg-light">
+                                        <div class="card-header">
+                                            <h6 class="mb-0">Base de Datos</h6>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="mb-3">
+                                                <label class="form-label">Estado</label>
+                                                <div class="alert alert-success mb-0">
+                                                    <i class="fas fa-check-circle"></i> Conectada
+                                                </div>
+                                            </div>
+                                            <button class="btn btn-warning w-100">
+                                                <i class="fas fa-database"></i> Hacer Respaldo
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ========== MODAL PARA AGREGAR PRODUCTO ========== -->
+<div class="modal fade" id="modalProducto" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Agregar Nuevo Producto</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="formProducto">
+                    <div class="mb-3">
+                        <label class="form-label">Nombre del Producto</label>
+                        <input type="text" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Categoría</label>
+                        <select class="form-control" required>
+                            <option>Selecciona una categoría</option>
+                            <option>Accesorios</option>
+                            <option>Alimentos</option>
+                            <option>Champús</option>
+                            <option>Juguetes</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Precio</label>
+                        <input type="number" class="form-control" step="0.01" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Stock</label>
+                        <input type="number" class="form-control" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary">Guardar Producto</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ========== ESTILOS PERSONALIZADOS ========== -->
+<style>
+    .border-left-primary {
+        border-left: 4px solid #667eea;
+    }
+    
+    .border-left-success {
+        border-left: 4px solid #28a745;
+    }
+    
+    .border-left-warning {
+        border-left: 4px solid #ffc107;
+    }
+    
+    .border-left-danger {
+        border-left: 4px solid #dc3545;
+    }
+</style>
+
+<!-- ========== SCRIPTS ========== -->
+<script>
+    // Función para cargar datos de ejemplo
+    document.addEventListener('DOMContentLoaded', function() {
+        // Aquí se cargarían los datos reales desde el servidor
+        console.log('Panel de administración cargado');
+    });
+</script>
+{% endblock %}

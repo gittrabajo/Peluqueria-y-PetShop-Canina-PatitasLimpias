@@ -1,0 +1,197 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container my-5">
+    <h1 class="mb-5 fw-bold text-center" style="color: #667eea;">
+        <i class="fas fa-scissors me-2"></i>Nuestros Servicios de Peluquería
+    </h1>
+
+    <!-- Servicios Grid -->
+    <div class="row g-4">
+        <!-- BAÑO Y SECADO -->
+        <div class="col-md-6 col-lg-4">
+            <div class="card h-100 shadow-sm border-0 position-relative overflow-hidden">
+                <div class="position-absolute top-0 end-0">
+                    <span class="badge bg-success m-3">Popular</span>
+                </div>
+                <div class="card-body text-center">
+                    <i class="fas fa-shower fa-3x mb-3" style="color: #667eea;"></i>
+                    <h5 class="card-title fw-bold">Baño y Secado</h5>
+                    <p class="card-text text-muted">45 minutos aproximadamente</p>
+                    <p class="card-text">Baño relajante con productos premium de la más alta calidad para el bienestar de tu perrito. Secado profesional incluido.</p>
+                    <h4 class="mb-3"><span style="color: #667eea;">$45.00</span></h4>
+                    <a href="{{ url_for('agenda') }}" class="btn btn-primary w-100">
+                        <i class="fas fa-calendar-check"></i> Agendar Ahora
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- CORTE PROFESIONAL -->
+        <div class="col-md-6 col-lg-4">
+            <div class="card h-100 shadow-sm border-0">
+                <div class="card-body text-center">
+                    <i class="fas fa-scissors fa-3x mb-3" style="color: #764ba2;"></i>
+                    <h5 class="card-title fw-bold">Corte Profesional</h5>
+                    <p class="card-text text-muted">60 minutos aproximadamente</p>
+                    <p class="card-text">Cortes profesionales adaptados especialmente a la raza y características de tu mascota. Acabado perfecto.</p>
+                    <h4 class="mb-3"><span style="color: #764ba2;">$60.00</span></h4>
+                    <a href="{{ url_for('agenda') }}" class="btn btn-primary w-100">
+                        <i class="fas fa-calendar-check"></i> Agendar Ahora
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- BAÑO + CORTE -->
+        <div class="col-md-6 col-lg-4">
+            <div class="card h-100 shadow-sm border-0 position-relative overflow-hidden">
+                <div class="position-absolute top-0 end-0">
+                    <span class="badge bg-danger m-3">Combo</span>
+                </div>
+                <div class="card-body text-center">
+                    <i class="fas fa-crown fa-3x mb-3" style="color: #f093fb;"></i>
+                    <h5 class="card-title fw-bold">Baño y Corte</h5>
+                    <p class="card-text text-muted">90 minutos aproximadamente</p>
+                    <p class="card-text">Nuestro servicio más popular. Incluye baño completo, secado y corte personalizado según tu preferencia.</p>
+                    <h4 class="mb-3"><span style="color: #f093fb;">$90.00</span></h4>
+                    <a href="{{ url_for('agenda') }}" class="btn btn-primary w-100">
+                        <i class="fas fa-calendar-check"></i> Agendar Ahora
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- DESLANADO -->
+        <div class="col-md-6 col-lg-4">
+            <div class="card h-100 shadow-sm border-0">
+                <div class="card-body text-center">
+                    <i class="fas fa-brush fa-3x mb-3" style="color: #4facfe;"></i>
+                    <h5 class="card-title fw-bold">Deslanado</h5>
+                    <p class="card-text text-muted">60 minutos aproximadamente</p>
+                    <p class="card-text">Ideal para razas de pelaje largo. Elimina todo el pelaje muerto y enmarañado. Especial para razas lanudas.</p>
+                    <h4 class="mb-3"><span style="color: #4facfe;">$65.00</span></h4>
+                    <a href="{{ url_for('agenda') }}" class="btn btn-primary w-100">
+                        <i class="fas fa-calendar-check"></i> Agendar Ahora
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- PELUQUERÍA COMPLETA -->
+        <div class="col-md-6 col-lg-4">
+            <div class="card h-100 shadow-sm border-0 position-relative overflow-hidden">
+                <div class="position-absolute top-0 end-0">
+                    <span class="badge bg-warning text-dark m-3">Premium</span>
+                </div>
+                <div class="card-body text-center">
+                    <i class="fas fa-spa fa-3x mb-3" style="color: #43e97b;"></i>
+                    <h5 class="card-title fw-bold">Peluquería Completa</h5>
+                    <p class="card-text text-muted">120 minutos aproximadamente</p>
+                    <p class="card-text">Nuestro servicio SPA premium. Incluye baño, secado, corte, deslanado y arreglos finales. Transformación total.</p>
+                    <h4 class="mb-3"><span style="color: #43e97b;">$120.00</span></h4>
+                    <a href="{{ url_for('agenda') }}" class="btn btn-primary w-100">
+                        <i class="fas fa-calendar-check"></i> Agendar Ahora
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- TRATAMIENTOS ESPECIALES -->
+        <div class="col-md-6 col-lg-4">
+            <div class="card h-100 shadow-sm border-0">
+                <div class="card-body text-center">
+                    <i class="fas fa-heart fa-3x mb-3" style="color: #f5576c;"></i>
+                    <h5 class="card-title fw-bold">Tratamientos Especiales</h5>
+                    <p class="card-text text-muted">45 minutos aproximadamente</p>
+                    <p class="card-text">Tratamientos para piel sensible, regeneración del pelaje y cuidado profesional. Consulta disponibilidad.</p>
+                    <h4 class="mb-3"><span style="color: #f5576c;">$55.00</span></h4>
+                    <a href="{{ url_for('agenda') }}" class="btn btn-primary w-100">
+                        <i class="fas fa-calendar-check"></i> Agendar Ahora
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- INFORMACIÓN ADICIONAL -->
+    <section class="mt-5 pt-5 border-top">
+        <h2 class="mb-4 fw-bold text-center">Información Importante</h2>
+        
+        <div class="row g-4">
+            <!-- HORARIOS -->
+            <div class="col-md-6">
+                <div class="card bg-light border-0">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold mb-3">
+                            <i class="fas fa-clock" style="color: #667eea;"></i> Horarios de Atención
+                        </h5>
+                        <ul class="list-unstyled">
+                            <li><strong>Martes a Viernes:</strong> 10:00 - 18:00</li>
+                            <li><strong>Sábados:</strong> 10:00 - 15:00</li>
+                            <li><strong>Domingos y Lunes:</strong> Cerrado</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RECOMENDACIONES -->
+            <div class="col-md-6">
+                <div class="card bg-light border-0">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold mb-3">
+                            <i class="fas fa-lightbulb" style="color: #667eea;"></i> Recomendaciones
+                        </h5>
+                        <ul class="list-unstyled">
+                            <li>✓ Agenda con anticipación para asegurar disponibilidad</li>
+                            <li>✓ Lleva al perro con pañal o alivia antes del servicio</li>
+                            <li>✓ Informa sobre condiciones de piel especiales</li>
+                            <li>✓ Prepara al perro días antes del grooming</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- POLÍTICA DE CANCELACIÓN -->
+            <div class="col-md-6">
+                <div class="card bg-light border-0">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold mb-3">
+                            <i class="fas fa-ban" style="color: #667eea;"></i> Política de Cancelación
+                        </h5>
+                        <p class="card-text small">Cancela con 24 horas de anticipación para no perder tu cita. Cancelaciones posteriores pueden incurrir en cargo.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MÉTODO DE PAGO -->
+            <div class="col-md-6">
+                <div class="card bg-light border-0">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold mb-3">
+                            <i class="fas fa-credit-card" style="color: #667eea;"></i> Métodos de Pago
+                        </h5>
+                        <p class="card-text small">Efectivo, transferencia bancaria, y tarjetas de débito/crédito. Se requiere confirmación previa.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="mt-5 text-center bg-gradient p-5 rounded" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+        <h2 class="fw-bold mb-4">¿Listo para agendar?</h2>
+        <p class="fs-5 mb-4">Contáctanos por WhatsApp para reservar tu cita hoy mismo</p>
+        <button class="btn btn-light btn-lg" onclick="abrirWhatsAppHero()">
+            <i class="fab fa-whatsapp me-2"></i> Agendar por WhatsApp
+        </button>
+    </section>
+</div>
+
+<script>
+    function abrirWhatsAppHero() {
+        const mensaje = encodeURIComponent('¡Hola! Me gustaría agendar un servicio de peluquería en Patitas Limpias. 🐾');
+        window.open(`https://wa.me/56962892769?text=${mensaje}`, '_blank');
+    }
+</script>
+{% endblock %}
