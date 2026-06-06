@@ -200,7 +200,9 @@ def admin():
     Panel de administración
     Permite gestionar productos y reservas
     """
-    return render_template("admin.html")
+    from models import Producto
+    productos = Producto.obtener_todos()
+    return render_template("admin.html", productos=productos)
 
 # ==================== API DE CITAS ====================
 

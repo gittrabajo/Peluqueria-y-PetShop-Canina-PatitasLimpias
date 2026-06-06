@@ -167,12 +167,40 @@ PANEL ADMINISTRADOR - admin.html
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        {% if productos %}
+                                            {% for producto in productos %}
+                                            <tr>
+                                                <td><strong>{{ producto['id'] }}</strong></td>
+                                                <td>{{ producto['nombre'] }}</td>
+                                                <td><span class="badge bg-info">{{ producto['categoria'] }}</span></td>
+                                                <td>${{ "%.2f"|format(producto['precio']) }}</td>
+                                                <td>
+                                                    {% if producto['stock'] < 5 %}
+                                                        <span class="badge bg-danger">{{ producto['stock'] }}</span>
+                                                    {% elif producto['stock'] < 10 %}
+                                                        <span class="badge bg-warning">{{ producto['stock'] }}</span>
+                                                    {% else %}
+                                                        <span class="badge bg-success">{{ producto['stock'] }}</span>
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-primary" onclick="editarProducto({{ producto['id'] }}, '{{ producto['nombre'] }}', '{{ producto['descripcion'] }}', {{ producto['precio'] }}, '{{ producto['categoria'] }}', {{ producto['stock'] }})">
+                                                        <i class="fas fa-edit"></i>
+                                                    </button>
+                                                    <button class="btn btn-sm btn-danger" onclick="eliminarProducto({{ producto['id'] }}, '{{ producto['nombre'] }}')">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                        {% else %}
                                         <tr>
                                             <td colspan="6" class="text-center text-muted py-4">
                                                 <i class="fas fa-inbox fa-2x mb-2"></i>
                                                 <p>No hay productos registrados aún</p>
                                             </td>
                                         </tr>
+                                        {% endif %}
                                     </tbody>
                                 </table>
                             </div>
@@ -277,38 +305,48 @@ PANEL ADMINISTRADOR - admin.html
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Agregar Nuevo Producto</h5>
+                <h5 class="modal-title" id="tituloModal">Agregar Nuevo Producto</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
                 <form id="formProducto">
+                    <input type="hidden" id="productoId" name="id">
                     <div class="mb-3">
                         <label class="form-label">Nombre del Producto</label>
-                        <input type="text" class="form-control" required>
+                        <input type="text" id="nombreProducto" name="nombre" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Descripción</label>
+                        <textarea id="descripcionProducto" name="descripcion" class="form-control" rows="3"></textarea>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Categoría</label>
-                        <select class="form-control" required>
+                        <select class="form-control" id="categoriaProducto" name="categoria" required>
                             <option>Selecciona una categoría</option>
-                            <option>Accesorios</option>
-                            <option>Alimentos</option>
-                            <option>Champús</option>
-                            <option>Juguetes</option>
+                            <option>🦮 Paseo y Seguridad</option>
+                            <option>🍖 Alimentación y Bebederos</option>
+                            <option>🧸 Descanso y Entretenimiento</option>
+                            <option>🛁 Higiene y Cuidado</option>
+                            <option>🚗 Viaje y Hogar</option>
                         </select>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Precio</label>
-                        <input type="number" class="form-control" step="0.01" required>
+                        <input type="number" id="precioProducto" name="precio" class="form-control" step="0.01" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Stock</label>
-                        <input type="number" class="form-control" required>
+                        <input type="number" id="stockProducto" name="stock" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Imagen</label>
+                        <input type="file" id="imagenProducto" name="imagen" class="form-control" accept="image/*">
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary">Guardar Producto</button>
+                <button type="button" class="btn btn-primary" id="btnGuardarProducto" onclick="guardarProducto()">Guardar Producto</button>
             </div>
         </div>
     </div>
@@ -335,7 +373,83 @@ PANEL ADMINISTRADOR - admin.html
 
 <!-- ========== SCRIPTS ========== -->
 <script>
-    // Función para cargar datos de ejemplo
+    let estaEditando = false;
+    const modalProducto = new bootstrap.Modal(document.getElementById('modalProducto'));
+    
+    // Limpiar formulario cuando se cierra el modal
+    document.getElementById('modalProducto').addEventListener('hidden.bs.modal', function() {
+        document.getElementById('formProducto').reset();
+        document.getElementById('productoId').value = '';
+        document.getElementById('tituloModal').textContent = 'Agregar Nuevo Producto';
+        document.getElementById('btnGuardarProducto').textContent = 'Guardar Producto';
+        estaEditando = false;
+    });
+    
+    function editarProducto(id, nombre, descripcion, precio, categoria, stock) {
+        estaEditando = true;
+        document.getElementById('productoId').value = id;
+        document.getElementById('nombreProducto').value = nombre;
+        document.getElementById('descripcionProducto').value = descripcion;
+        document.getElementById('precioProducto').value = precio;
+        document.getElementById('categoriaProducto').value = categoria;
+        document.getElementById('stockProducto').value = stock;
+        document.getElementById('tituloModal').textContent = 'Editar Producto';
+        document.getElementById('btnGuardarProducto').textContent = 'Actualizar Producto';
+        modalProducto.show();
+    }
+    
+    async function guardarProducto() {
+        const form = document.getElementById('formProducto');
+        const formData = new FormData(form);
+        const productoId = document.getElementById('productoId').value;
+        
+        try {
+            let url = '/admin/api/productos';
+            let method = 'POST';
+            
+            if (estaEditando && productoId) {
+                url = `/admin/api/productos/${productoId}`;
+                method = 'PUT';
+            }
+            
+            const response = await fetch(url, {
+                method: method,
+                body: formData
+            });
+            
+            const data = await response.json();
+            if (data.success) {
+                alert(estaEditando ? 'Producto actualizado exitosamente' : 'Producto guardado exitosamente');
+                location.reload();
+            } else {
+                alert('Error: ' + data.error);
+            }
+        } catch (error) {
+            alert('Error al guardar: ' + error);
+        }
+    }
+    
+    async function eliminarProducto(id, nombre) {
+        if (confirm(`¿Está seguro de que desea eliminar el producto "${nombre}"?`)) {
+            try {
+                const response = await fetch(`/admin/api/productos/${id}`, {
+                    method: 'DELETE'
+                });
+                
+                const data = await response.json();
+                if (data.success) {
+                    alert('Producto eliminado exitosamente');
+                    location.reload();
+                } else {
+                    alert('Error: ' + data.error);
+                }
+            } catch (error) {
+                alert('Error al eliminar: ' + error);
+            }
+        }
+    }
+    
+    // Función para cargar datos de productos
     document.addEventListener('DOMContentLoaded', function() {
         // Aquí se cargarían los datos reales desde el servidor
         console.log('Panel de administración cargado');
