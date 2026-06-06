@@ -374,15 +374,20 @@ PANEL ADMINISTRADOR - admin.html
 <!-- ========== SCRIPTS ========== -->
 <script>
     let estaEditando = false;
-    const modalProducto = new bootstrap.Modal(document.getElementById('modalProducto'));
+    let modalProducto;
     
-    // Limpiar formulario cuando se cierra el modal
-    document.getElementById('modalProducto').addEventListener('hidden.bs.modal', function() {
-        document.getElementById('formProducto').reset();
-        document.getElementById('productoId').value = '';
-        document.getElementById('tituloModal').textContent = 'Agregar Nuevo Producto';
-        document.getElementById('btnGuardarProducto').textContent = 'Guardar Producto';
-        estaEditando = false;
+    document.addEventListener('DOMContentLoaded', function() {
+        // Inicializar el modal cuando Bootstrap está listo
+        modalProducto = new bootstrap.Modal(document.getElementById('modalProducto'));
+        
+        // Limpiar formulario cuando se cierra el modal
+        document.getElementById('modalProducto').addEventListener('hidden.bs.modal', function() {
+            document.getElementById('formProducto').reset();
+            document.getElementById('productoId').value = '';
+            document.getElementById('tituloModal').textContent = 'Agregar Nuevo Producto';
+            document.getElementById('btnGuardarProducto').textContent = 'Guardar Producto';
+            estaEditando = false;
+        });
     });
     
     function editarProducto(id, nombre, descripcion, precio, categoria, stock) {
@@ -448,11 +453,5 @@ PANEL ADMINISTRADOR - admin.html
             }
         }
     }
-    
-    // Función para cargar datos de productos
-    document.addEventListener('DOMContentLoaded', function() {
-        // Aquí se cargarían los datos reales desde el servidor
-        console.log('Panel de administración cargado');
-    });
 </script>
 {% endblock %}
