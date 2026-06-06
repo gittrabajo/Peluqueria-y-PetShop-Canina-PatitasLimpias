@@ -42,10 +42,11 @@ PÁGINA DE TIENDA - tienda.html
                             </label>
                             <select class="form-select" id="categoria">
                                 <option value="">Todas las Categorías</option>
-                                <option value="Accesorios">Accesorios</option>
-                                <option value="Alimentos">Alimentos</option>
-                                <option value="Champús">Champús</option>
-                                <option value="Juguetes">Juguetes</option>
+                                <option value="Paseo y Seguridad">🦮 Paseo y Seguridad</option>
+                                <option value="Alimentación y Bebederos">🍖 Alimentación y Bebederos</option>
+                                <option value="Descanso y Entretenimiento">🧸 Descanso y Entretenimiento</option>
+                                <option value="Higiene y Cuidado">🛁 Higiene y Cuidado</option>
+                                <option value="Viaje y Hogar">🚗 Viaje y Hogar</option>
                             </select>
                         </div>
                         
@@ -69,189 +70,560 @@ PÁGINA DE TIENDA - tienda.html
     
     <!-- ========== GRID DE PRODUCTOS ========== -->
     <div class="row" id="productosGrid">
-        <!-- Producto 1 -->
-        <div class="col-md-6 col-lg-3 mb-4 producto-item" data-categoria="Champús">
+        <!-- CATEGORÍA: PASEO Y SEGURIDAD -->
+        <!-- Producto 1: Arnés Acolchado -->
+        <div class="col-md-6 col-lg-3 mb-4 producto-item" data-categoria="Paseo y Seguridad">
             <div class="card h-100 shadow-sm hover-product">
-                <!-- Imagen del producto -->
                 <div class="producto-imagen position-relative">
-                    <img src="{{ url_for('static', filename='img/default-product.jpg') }}" 
-                         class="card-img-top" alt="Champú Premium" style="height: 250px; object-fit: cover;">
+                    <img src="https://images.unsplash.com/photo-1544568100-847a948585b0?w=400&h=300&fit=crop" 
+                         class="card-img-top" alt="Arnés Acolchado" style="height: 250px; object-fit: cover;">
                     <span class="badge bg-success position-absolute top-0 end-0 m-2">
                         <i class="fas fa-check-circle"></i> En Stock
                     </span>
                 </div>
-                
-                <!-- Información del producto -->
                 <div class="card-body">
-                    <h5 class="card-title">Champú Premium Hipoalergénico</h5>
-                    <p class="card-text text-muted">
-                        Champú suave y efectivo para pieles sensibles. Con ingredientes naturales.
-                    </p>
-                    
-                    <!-- Precio -->
+                    <h5 class="card-title">🦮 Arnés Acolchado Premium</h5>
+                    <p class="card-text text-muted">Arnés ergonómico y cómodo para paseos largos. Material resistente y transpirable.</p>
                     <div class="mb-3">
-                        <span class="h5 text-primary me-2">$24.99</span>
-                        <small class="text-muted"><strike>$29.99</strike></small>
+                        <span class="h5 text-primary me-2">$15.990</span>
+                        <small class="text-muted"><strike>$19.990</strike></small>
                     </div>
-                    
-                    <!-- Rating -->
                     <div class="mb-3">
                         <i class="fas fa-star text-warning"></i>
                         <i class="fas fa-star text-warning"></i>
                         <i class="fas fa-star text-warning"></i>
                         <i class="fas fa-star text-warning"></i>
                         <i class="fas fa-star-half text-warning"></i>
-                        <small class="text-muted">(45 reseñas)</small>
+                        <small class="text-muted">(42 reseñas)</small>
                     </div>
                 </div>
-                
-                <!-- Acciones -->
                 <div class="card-footer bg-white border-top">
                     <div class="d-grid gap-2">
                         <button class="btn btn-primary btnAgregarCarrito" 
-                                data-id="1" data-nombre="Champú Premium" data-precio="24.99">
+                                data-id="1" data-nombre="Arnés Acolchado Premium" data-precio="15.99">
                             <i class="fas fa-shopping-cart"></i> Agregar al Carrito
-                        </button>
-                        <button class="btn btn-outline-secondary btn-sm">
-                            <i class="fas fa-heart"></i> Favorito
                         </button>
                     </div>
                 </div>
             </div>
         </div>
-        
-        <!-- Producto 2 -->
-        <div class="col-md-6 col-lg-3 mb-4 producto-item" data-categoria="Alimentos">
+
+        <!-- Producto 2: Correa Extensible -->
+        <div class="col-md-6 col-lg-3 mb-4 producto-item" data-categoria="Paseo y Seguridad">
             <div class="card h-100 shadow-sm hover-product">
                 <div class="producto-imagen position-relative">
-                    <img src="{{ url_for('static', filename='img/default-product.jpg') }}" 
-                         class="card-img-top" alt="Alimento Premium" style="height: 250px; object-fit: cover;">
+                    <img src="https://images.unsplash.com/photo-1558938313-6fde81f06716?w=400&h=300&fit=crop" 
+                         class="card-img-top" alt="Correa Extensible" style="height: 250px; object-fit: cover;">
                     <span class="badge bg-success position-absolute top-0 end-0 m-2">
                         <i class="fas fa-check-circle"></i> En Stock
                     </span>
                 </div>
-                
                 <div class="card-body">
-                    <h5 class="card-title">Alimento Premium para Perros</h5>
-                    <p class="card-text text-muted">
-                        Fórmula balanceada con proteínas de calidad. Bolsa de 5 kg.
-                    </p>
-                    
+                    <h5 class="card-title">🦮 Correa Extensible 5m</h5>
+                    <p class="card-text text-muted">Correa retráctil de 5 metros. Ideal para parques y espacios abiertos.</p>
                     <div class="mb-3">
-                        <span class="h5 text-primary me-2">$34.99</span>
-                        <small class="text-muted"><strike>$39.99</strike></small>
+                        <span class="h5 text-primary me-2">$12.990</span>
+                        <small class="text-muted"><strike>$16.990</strike></small>
                     </div>
-                    
                     <div class="mb-3">
                         <i class="fas fa-star text-warning"></i>
                         <i class="fas fa-star text-warning"></i>
                         <i class="fas fa-star text-warning"></i>
                         <i class="fas fa-star text-warning"></i>
                         <i class="fas fa-star text-warning"></i>
-                        <small class="text-muted">(128 reseñas)</small>
+                        <small class="text-muted">(98 reseñas)</small>
                     </div>
                 </div>
-                
                 <div class="card-footer bg-white border-top">
                     <div class="d-grid gap-2">
                         <button class="btn btn-primary btnAgregarCarrito" 
-                                data-id="2" data-nombre="Alimento Premium" data-precio="34.99">
+                                data-id="2" data-nombre="Correa Extensible 5m" data-precio="12.99">
                             <i class="fas fa-shopping-cart"></i> Agregar al Carrito
-                        </button>
-                        <button class="btn btn-outline-secondary btn-sm">
-                            <i class="fas fa-heart"></i> Favorito
                         </button>
                     </div>
                 </div>
             </div>
         </div>
-        
-        <!-- Producto 3 -->
-        <div class="col-md-6 col-lg-3 mb-4 producto-item" data-categoria="Juguetes">
+
+        <!-- Producto 3: Placa Identificación -->
+        <div class="col-md-6 col-lg-3 mb-4 producto-item" data-categoria="Paseo y Seguridad">
             <div class="card h-100 shadow-sm hover-product">
                 <div class="producto-imagen position-relative">
-                    <img src="{{ url_for('static', filename='img/default-product.jpg') }}" 
-                         class="card-img-top" alt="Juguete Interactivo" style="height: 250px; object-fit: cover;">
+                    <img src="https://images.unsplash.com/photo-1601758228200-bedac9ad5ecf?w=400&h=300&fit=crop" 
+                         class="card-img-top" alt="Placa Identificación" style="height: 250px; object-fit: cover;">
+                    <span class="badge bg-info position-absolute top-0 end-0 m-2">
+                        <i class="fas fa-personalization"></i> Personalizable
+                    </span>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">🦮 Placa Identificación Personalizada</h5>
+                    <p class="card-text text-muted">Placa grabada con nombre y teléfono. Material resistente a oxidación.</p>
+                    <div class="mb-3">
+                        <span class="h5 text-primary me-2">$8.990</span>
+                        <small class="text-muted"><strike>$11.990</strike></small>
+                    </div>
+                    <div class="mb-3">
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star-half text-warning"></i>
+                        <small class="text-muted">(67 reseñas)</small>
+                    </div>
+                </div>
+                <div class="card-footer bg-white border-top">
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-primary btnAgregarCarrito" 
+                                data-id="3" data-nombre="Placa Identificación" data-precio="8.99">
+                            <i class="fas fa-shopping-cart"></i> Agregar al Carrito
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CATEGORÍA: ALIMENTACIÓN Y BEBEDEROS -->
+        <!-- Producto 4: Comedero Acero Inoxidable -->
+        <div class="col-md-6 col-lg-3 mb-4 producto-item" data-categoria="Alimentación y Bebederos">
+            <div class="card h-100 shadow-sm hover-product">
+                <div class="producto-imagen position-relative">
+                    <img src="https://images.unsplash.com/photo-1583511655857-d19db992cb74?w=400&h=300&fit=crop" 
+                         class="card-img-top" alt="Comedero" style="height: 250px; object-fit: cover;">
+                    <span class="badge bg-success position-absolute top-0 end-0 m-2">
+                        <i class="fas fa-check-circle"></i> En Stock
+                    </span>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">🍖 Comedero Acero Inoxidable</h5>
+                    <p class="card-text text-muted">Juego de 2 comederos de acero inoxidable. Fácil de limpiar y higiénico.</p>
+                    <div class="mb-3">
+                        <span class="h5 text-primary me-2">$18.990</span>
+                        <small class="text-muted"><strike>$24.990</strike></small>
+                    </div>
+                    <div class="mb-3">
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <small class="text-muted">(156 reseñas)</small>
+                    </div>
+                </div>
+                <div class="card-footer bg-white border-top">
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-primary btnAgregarCarrito" 
+                                data-id="4" data-nombre="Comedero Acero Inoxidable" data-precio="18.99">
+                            <i class="fas fa-shopping-cart"></i> Agregar al Carrito
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Producto 5: Bebedero Portátil -->
+        <div class="col-md-6 col-lg-3 mb-4 producto-item" data-categoria="Alimentación y Bebederos">
+            <div class="card h-100 shadow-sm hover-product">
+                <div class="producto-imagen position-relative">
+                    <img src="https://images.unsplash.com/photo-1537151608828-ea2b11777ee8?w=400&h=300&fit=crop" 
+                         class="card-img-top" alt="Bebedero Portátil" style="height: 250px; object-fit: cover;">
                     <span class="badge bg-warning position-absolute top-0 end-0 m-2">
-                        <i class="fas fa-fire"></i> Descuento
+                        <i class="fas fa-fire"></i> Viajes
                     </span>
                 </div>
-                
                 <div class="card-body">
-                    <h5 class="card-title">Juguete Interactivo Inteligente</h5>
-                    <p class="card-text text-muted">
-                        Juguete que estimula la inteligencia canina. Material resistente.
-                    </p>
-                    
+                    <h5 class="card-title">🍖 Bebedero Portátil 3 en 1</h5>
+                    <p class="card-text text-muted">Bebedero plegable perfecto para viajes. Capacidad de 600ml.</p>
                     <div class="mb-3">
-                        <span class="h5 text-primary me-2">$19.99</span>
-                        <small class="text-muted"><strike>$24.99</strike></small>
+                        <span class="h5 text-primary me-2">$14.990</span>
+                        <small class="text-muted"><strike>$18.990</strike></small>
                     </div>
-                    
                     <div class="mb-3">
                         <i class="fas fa-star text-warning"></i>
                         <i class="fas fa-star text-warning"></i>
                         <i class="fas fa-star text-warning"></i>
                         <i class="fas fa-star text-warning"></i>
                         <i class="fas fa-star-half text-warning"></i>
-                        <small class="text-muted">(87 reseñas)</small>
+                        <small class="text-muted">(89 reseñas)</small>
                     </div>
                 </div>
-                
                 <div class="card-footer bg-white border-top">
                     <div class="d-grid gap-2">
                         <button class="btn btn-primary btnAgregarCarrito" 
-                                data-id="3" data-nombre="Juguete Interactivo" data-precio="19.99">
+                                data-id="5" data-nombre="Bebedero Portátil 3 en 1" data-precio="14.99">
                             <i class="fas fa-shopping-cart"></i> Agregar al Carrito
-                        </button>
-                        <button class="btn btn-outline-secondary btn-sm">
-                            <i class="fas fa-heart"></i> Favorito
                         </button>
                     </div>
                 </div>
             </div>
         </div>
-        
-        <!-- Producto 4 -->
-        <div class="col-md-6 col-lg-3 mb-4 producto-item" data-categoria="Accesorios">
+
+        <!-- Producto 6: Alfombra Olfativa -->
+        <div class="col-md-6 col-lg-3 mb-4 producto-item" data-categoria="Alimentación y Bebederos">
             <div class="card h-100 shadow-sm hover-product">
                 <div class="producto-imagen position-relative">
-                    <img src="{{ url_for('static', filename='img/default-product.jpg') }}" 
-                         class="card-img-top" alt="Collar Premium" style="height: 250px; object-fit: cover;">
+                    <img src="https://images.unsplash.com/photo-1560807707-8cc77767d783?w=400&h=300&fit=crop" 
+                         class="card-img-top" alt="Alfombra Olfativa" style="height: 250px; object-fit: cover;">
                     <span class="badge bg-success position-absolute top-0 end-0 m-2">
                         <i class="fas fa-check-circle"></i> En Stock
                     </span>
                 </div>
-                
                 <div class="card-body">
-                    <h5 class="card-title">Collar Premium con GPS</h5>
-                    <p class="card-text text-muted">
-                        Collar inteligente con GPS incorporado. Localiza a tu mascota en tiempo real.
-                    </p>
-                    
+                    <h5 class="card-title">🍖 Alfombra Olfativa Snuffle</h5>
+                    <p class="card-text text-muted">Estimula el olfato. Ideal para esconder golosinas y mantener ocupado.</p>
                     <div class="mb-3">
-                        <span class="h5 text-primary me-2">$89.99</span>
-                        <small class="text-muted"><strike>$99.99</strike></small>
+                        <span class="h5 text-primary me-2">$16.990</span>
+                        <small class="text-muted"><strike>$21.990</strike></small>
                     </div>
-                    
                     <div class="mb-3">
                         <i class="fas fa-star text-warning"></i>
                         <i class="fas fa-star text-warning"></i>
                         <i class="fas fa-star text-warning"></i>
                         <i class="fas fa-star text-warning"></i>
                         <i class="fas fa-star text-warning"></i>
-                        <small class="text-muted">(64 reseñas)</small>
+                        <small class="text-muted">(134 reseñas)</small>
                     </div>
                 </div>
-                
                 <div class="card-footer bg-white border-top">
                     <div class="d-grid gap-2">
                         <button class="btn btn-primary btnAgregarCarrito" 
-                                data-id="4" data-nombre="Collar Premium GPS" data-precio="89.99">
+                                data-id="6" data-nombre="Alfombra Olfativa Snuffle" data-precio="16.99">
                             <i class="fas fa-shopping-cart"></i> Agregar al Carrito
                         </button>
-                        <button class="btn btn-outline-secondary btn-sm">
-                            <i class="fas fa-heart"></i> Favorito
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CATEGORÍA: DESCANSO Y ENTRETENIMIENTO -->
+        <!-- Producto 7: Cama Ortopédica -->
+        <div class="col-md-6 col-lg-3 mb-4 producto-item" data-categoria="Descanso y Entretenimiento">
+            <div class="card h-100 shadow-sm hover-product">
+                <div class="producto-imagen position-relative">
+                    <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=400&h=300&fit=crop" 
+                         class="card-img-top" alt="Cama Ortopédica" style="height: 250px; object-fit: cover;">
+                    <span class="badge bg-success position-absolute top-0 end-0 m-2">
+                        <i class="fas fa-check-circle"></i> En Stock
+                    </span>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">🧸 Cama Ortopédica Memory Foam</h5>
+                    <p class="card-text text-muted">Cama con espuma de memoria. Perfecta para perros adultos y mayores. Talla M.</p>
+                    <div class="mb-3">
+                        <span class="h5 text-primary me-2">$35.990</span>
+                        <small class="text-muted"><strike>$45.990</strike></small>
+                    </div>
+                    <div class="mb-3">
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star-half text-warning"></i>
+                        <small class="text-muted">(112 reseñas)</small>
+                    </div>
+                </div>
+                <div class="card-footer bg-white border-top">
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-primary btnAgregarCarrito" 
+                                data-id="7" data-nombre="Cama Ortopédica Memory Foam" data-precio="35.99">
+                            <i class="fas fa-shopping-cart"></i> Agregar al Carrito
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Producto 8: Juguete Kong -->
+        <div class="col-md-6 col-lg-3 mb-4 producto-item" data-categoria="Descanso y Entretenimiento">
+            <div class="card h-100 shadow-sm hover-product">
+                <div class="producto-imagen position-relative">
+                    <img src="https://images.unsplash.com/photo-1583511655857-d19db992cb74?w=400&h=300&fit=crop" 
+                         class="card-img-top" alt="Juguete Kong" style="height: 250px; object-fit: cover;">
+                    <span class="badge bg-warning position-absolute top-0 end-0 m-2">
+                        <i class="fas fa-fire"></i> Popular
+                    </span>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">🧸 Juguete Kong Resistente</h5>
+                    <p class="card-text text-muted">Juguete de goma resistente tipo Kong. Ideal para masticar y llenar con golosinas.</p>
+                    <div class="mb-3">
+                        <span class="h5 text-primary me-2">$10.990</span>
+                        <small class="text-muted"><strike>$14.990</strike></small>
+                    </div>
+                    <div class="mb-3">
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <small class="text-muted">(201 reseñas)</small>
+                    </div>
+                </div>
+                <div class="card-footer bg-white border-top">
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-primary btnAgregarCarrito" 
+                                data-id="8" data-nombre="Juguete Kong Resistente" data-precio="10.99">
+                            <i class="fas fa-shopping-cart"></i> Agregar al Carrito
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Producto 9: Ropa - Abrigo Polar -->
+        <div class="col-md-6 col-lg-3 mb-4 producto-item" data-categoria="Descanso y Entretenimiento">
+            <div class="card h-100 shadow-sm hover-product">
+                <div class="producto-imagen position-relative">
+                    <img src="https://images.unsplash.com/photo-1587300411107-ec76416dbcff?w=400&h=300&fit=crop" 
+                         class="card-img-top" alt="Abrigo Polar" style="height: 250px; object-fit: cover;">
+                    <span class="badge bg-success position-absolute top-0 end-0 m-2">
+                        <i class="fas fa-check-circle"></i> En Stock
+                    </span>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">🧸 Abrigo Polar Invierno</h5>
+                    <p class="card-text text-muted">Chaleco polar cálido. Perfecto para temperaturas bajas. Talla M.</p>
+                    <div class="mb-3">
+                        <span class="h5 text-primary me-2">$22.990</span>
+                        <small class="text-muted"><strike>$28.990</strike></small>
+                    </div>
+                    <div class="mb-3">
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star-half text-warning"></i>
+                        <small class="text-muted">(78 reseñas)</small>
+                    </div>
+                </div>
+                <div class="card-footer bg-white border-top">
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-primary btnAgregarCarrito" 
+                                data-id="9" data-nombre="Abrigo Polar Invierno" data-precio="22.99">
+                            <i class="fas fa-shopping-cart"></i> Agregar al Carrito
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CATEGORÍA: HIGIENE Y CUIDADO -->
+        <!-- Producto 10: Shampoo Premium -->
+        <div class="col-md-6 col-lg-3 mb-4 producto-item" data-categoria="Higiene y Cuidado">
+            <div class="card h-100 shadow-sm hover-product">
+                <div class="producto-imagen position-relative">
+                    <img src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=400&h=300&fit=crop" 
+                         class="card-img-top" alt="Shampoo Premium" style="height: 250px; object-fit: cover;">
+                    <span class="badge bg-success position-absolute top-0 end-0 m-2">
+                        <i class="fas fa-check-circle"></i> En Stock
+                    </span>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">🛁 Shampoo Premium Hipoalergénico</h5>
+                    <p class="card-text text-muted">Champú suave para pieles sensibles. 500ml de fórmula natural.</p>
+                    <div class="mb-3">
+                        <span class="h5 text-primary me-2">$13.990</span>
+                        <small class="text-muted"><strike>$17.990</strike></small>
+                    </div>
+                    <div class="mb-3">
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star-half text-warning"></i>
+                        <small class="text-muted">(145 reseñas)</small>
+                    </div>
+                </div>
+                <div class="card-footer bg-white border-top">
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-primary btnAgregarCarrito" 
+                                data-id="10" data-nombre="Shampoo Premium Hipoalergénico" data-precio="13.99">
+                            <i class="fas fa-shopping-cart"></i> Agregar al Carrito
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Producto 11: Cepillo Deslanador -->
+        <div class="col-md-6 col-lg-3 mb-4 producto-item" data-categoria="Higiene y Cuidado">
+            <div class="card h-100 shadow-sm hover-product">
+                <div class="producto-imagen position-relative">
+                    <img src="https://images.unsplash.com/photo-1599233914849-f42edd15a0aa?w=400&h=300&fit=crop" 
+                         class="card-img-top" alt="Cepillo Deslanador" style="height: 250px; object-fit: cover;">
+                    <span class="badge bg-success position-absolute top-0 end-0 m-2">
+                        <i class="fas fa-check-circle"></i> En Stock
+                    </span>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">🛁 Cepillo Deslanador Doble Cara</h5>
+                    <p class="card-text text-muted">Cepillo efectivo para remover pelo muerto. Doble cara para diferentes longitudes.</p>
+                    <div class="mb-3">
+                        <span class="h5 text-primary me-2">$11.990</span>
+                        <small class="text-muted"><strike>$15.990</strike></small>
+                    </div>
+                    <div class="mb-3">
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <small class="text-muted">(187 reseñas)</small>
+                    </div>
+                </div>
+                <div class="card-footer bg-white border-top">
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-primary btnAgregarCarrito" 
+                                data-id="11" data-nombre="Cepillo Deslanador Doble Cara" data-precio="11.99">
+                            <i class="fas fa-shopping-cart"></i> Agregar al Carrito
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Producto 12: Bolsas Biodegradables -->
+        <div class="col-md-6 col-lg-3 mb-4 producto-item" data-categoria="Higiene y Cuidado">
+            <div class="card h-100 shadow-sm hover-product">
+                <div class="producto-imagen position-relative">
+                    <img src="https://images.unsplash.com/photo-1596854407944-bf87f6fdd49e?w=400&h=300&fit=crop" 
+                         class="card-img-top" alt="Bolsas Biodegradables" style="height: 250px; object-fit: cover;">
+                    <span class="badge bg-success position-absolute top-0 end-0 m-2">
+                        <i class="fas fa-check-circle"></i> En Stock
+                    </span>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">🛁 Bolsas Biodegradables Pack 100</h5>
+                    <p class="card-text text-muted">100 bolsas eco-friendly. Dispensador incluido. Resistentes y biodegradables.</p>
+                    <div class="mb-3">
+                        <span class="h5 text-primary me-2">$6.990</span>
+                        <small class="text-muted"><strike>$8.990</strike></small>
+                    </div>
+                    <div class="mb-3">
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star-half text-warning"></i>
+                        <small class="text-muted">(156 reseñas)</small>
+                    </div>
+                </div>
+                <div class="card-footer bg-white border-top">
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-primary btnAgregarCarrito" 
+                                data-id="12" data-nombre="Bolsas Biodegradables Pack 100" data-precio="6.99">
+                            <i class="fas fa-shopping-cart"></i> Agregar al Carrito
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CATEGORÍA: VIAJE Y HOGAR -->
+        <!-- Producto 13: Jaula Transporte -->
+        <div class="col-md-6 col-lg-3 mb-4 producto-item" data-categoria="Viaje y Hogar">
+            <div class="card h-100 shadow-sm hover-product">
+                <div class="producto-imagen position-relative">
+                    <img src="https://images.unsplash.com/photo-1589941013453-ec89f33b5e95?w=400&h=300&fit=crop" 
+                         class="card-img-top" alt="Jaula Transporte" style="height: 250px; object-fit: cover;">
+                    <span class="badge bg-success position-absolute top-0 end-0 m-2">
+                        <i class="fas fa-check-circle"></i> En Stock
+                    </span>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">🚗 Jaula Transporte Plegable M</h5>
+                    <p class="card-text text-muted">Jaula reglamentaria para viajes. Plegable y fácil de transportar. Talla M.</p>
+                    <div class="mb-3">
+                        <span class="h5 text-primary me-2">$45.990</span>
+                        <small class="text-muted"><strike>$59.990</strike></small>
+                    </div>
+                    <div class="mb-3">
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star-half text-warning"></i>
+                        <small class="text-muted">(94 reseñas)</small>
+                    </div>
+                </div>
+                <div class="card-footer bg-white border-top">
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-primary btnAgregarCarrito" 
+                                data-id="13" data-nombre="Jaula Transporte Plegable M" data-precio="45.99">
+                            <i class="fas fa-shopping-cart"></i> Agregar al Carrito
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Producto 14: Cinturón Seguridad Vehículo -->
+        <div class="col-md-6 col-lg-3 mb-4 producto-item" data-categoria="Viaje y Hogar">
+            <div class="card h-100 shadow-sm hover-product">
+                <div class="producto-imagen position-relative">
+                    <img src="https://images.unsplash.com/photo-1605178394235-fcf10a9d4ccf?w=400&h=300&fit=crop" 
+                         class="card-img-top" alt="Cinturón Seguridad" style="height: 250px; object-fit: cover;">
+                    <span class="badge bg-danger position-absolute top-0 end-0 m-2">
+                        <i class="fas fa-heart"></i> Seguridad
+                    </span>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">🚗 Cinturón Seguridad Vehículo</h5>
+                    <p class="card-text text-muted">Cinturón de seguridad ajustable. Adaptable a puntos de anclaje del auto.</p>
+                    <div class="mb-3">
+                        <span class="h5 text-primary me-2">$11.990</span>
+                        <small class="text-muted"><strike>$15.990</strike></small>
+                    </div>
+                    <div class="mb-3">
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <small class="text-muted">(112 reseñas)</small>
+                    </div>
+                </div>
+                <div class="card-footer bg-white border-top">
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-primary btnAgregarCarrito" 
+                                data-id="14" data-nombre="Cinturón Seguridad Vehículo" data-precio="11.99">
+                            <i class="fas fa-shopping-cart"></i> Agregar al Carrito
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Producto 15: Alfombra Refrigerante -->
+        <div class="col-md-6 col-lg-3 mb-4 producto-item" data-categoria="Viaje y Hogar">
+            <div class="card h-100 shadow-sm hover-product">
+                <div class="producto-imagen position-relative">
+                    <img src="https://images.unsplash.com/photo-1587889335921-207f53fcff5e?w=400&h=300&fit=crop" 
+                         class="card-img-top" alt="Alfombra Refrigerante" style="height: 250px; object-fit: cover;">
+                    <span class="badge bg-success position-absolute top-0 end-0 m-2">
+                        <i class="fas fa-check-circle"></i> En Stock
+                    </span>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">🚗 Alfombra Refrigerante Gel</h5>
+                    <p class="card-text text-muted">Alfombra gel auto-refrigerante. No requiere refrigeración. Perfecta para verano.</p>
+                    <div class="mb-3">
+                        <span class="h5 text-primary me-2">$24.990</span>
+                        <small class="text-muted"><strike>$31.990</strike></small>
+                    </div>
+                    <div class="mb-3">
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star-half text-warning"></i>
+                        <small class="text-muted">(103 reseñas)</small>
+                    </div>
+                </div>
+                <div class="card-footer bg-white border-top">
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-primary btnAgregarCarrito" 
+                                data-id="15" data-nombre="Alfombra Refrigerante Gel" data-precio="24.99">
+                            <i class="fas fa-shopping-cart"></i> Agregar al Carrito
                         </button>
                     </div>
                 </div>
