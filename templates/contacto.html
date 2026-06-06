@@ -251,6 +251,38 @@
     </a>
 
 <script>
+    // Función para formatear los datos del formulario y enviarlos a WhatsApp
+    document.getElementById('formContacto').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevenir el envío normal del formulario
+        
+        // Obtener los datos del formulario
+        const nombre = document.querySelector('input[name="nombre"]').value;
+        const email = document.querySelector('input[name="email"]').value;
+        const telefono = document.querySelector('input[name="telefono"]').value || 'No proporcionado';
+        const asunto = document.querySelector('input[name="asunto"]').value;
+        const mensaje = document.querySelector('textarea[name="mensaje"]').value;
+        
+        // Formatear el mensaje para WhatsApp
+        const mensajeFormateado = encodeURIComponent(
+            `*📧 NUEVO MENSAJE DE CONTACTO* 🐾\n\n` +
+            `*Nombre:* ${nombre}\n` +
+            `*Email:* ${email}\n` +
+            `*Teléfono:* ${telefono}\n` +
+            `*Asunto:* ${asunto}\n\n` +
+            `*Mensaje:*\n${mensaje}`
+        );
+        
+        // Abrir WhatsApp con el mensaje
+        const urlWhatsApp = `https://wa.me/56962892769?text=${mensajeFormateado}`;
+        
+        // Mostrar confirmación y abrir WhatsApp
+        alert('✅ Tu mensaje será enviado a WhatsApp. Presiona OK para continuar.');
+        window.open(urlWhatsApp, '_blank');
+        
+        // Limpiar el formulario después de enviar
+        this.reset();
+    });
+
     // Función para abrir WhatsApp desde contacto
     function abrirWhatsAppContacto() {
         const mensaje = encodeURIComponent('¡Hola! Quisiera consultar sobre vuestros servicios de peluquería canina. 🐾');
