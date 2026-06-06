@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, request, jsonify, session, redirec
 from werkzeug.security import generate_password_hash, check_password_hash
 from utils import admin_required, login_required, save_upload_file
 from models import Usuario, Servicio, Producto, Cita, HorarioDisponible, Galeria, Mensaje
+from database import get_db
 from datetime import datetime, timedelta
 import json
 
@@ -123,6 +124,63 @@ def crear_producto():
         )
         
         return jsonify({'success': True, 'message': 'Producto creado'})
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)}), 400
+
+@admin_bp.route('/api/productos/<int:producto_id>', methods=['PUT'])
+@admin_required
+def actualizar_producto(producto_id):
+    """Actualizar producto existente"""
+    try:
+        nombre = request.form.get('nombre')
+        descripcion = request.form.get('descripcion')
+        precio = float(request.form.get('precio')) if request.form.get('precio') else None
+        categoria = request.form.get('categoria')
+        stock = int(request.form.get('stock')) if request.form.get('stock') else None
+        
+        # Obtener producto actual
+        producto_actual = Producto.obtener_por_id(producto_id)
+        if not producto_actual:
+            return jsonify({'success': False, 'error': 'Producto no encontrado'}), 404
+        
+        # Procesar nueva imagen si se proporciona
+        imagen_url = producto_actual['imagen']
+        if 'imagen' in request.files and request.files['imagen'].filename:
+            imagen_url = save_upload_file(request.files['imagen'])
+        
+        # Actualizar producto
+        db = get_db()
+        db.execute('''
+            UPDATE producto SET 
+            nombre = ?, 
+            descripcion = ?, 
+            precio = ?,
+            categoria = ?,
+            stock = ?,
+            imagen = ?
+            WHERE id = ?
+        ''', (nombre, descripcion, precio, categoria, stock, imagen_url, producto_id))
+        db.commit()
+        
+        return jsonify({'success': True, 'message': 'Producto actualizado'})
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)}), 400
+
+@admin_bp.route('/api/productos/<int:producto_id>', methods=['DELETE'])
+@admin_required
+def eliminar_producto(producto_id):
+    """Eliminar producto"""
+    try:
+        # Verificar que existe
+        producto = Producto.obtener_por_id(producto_id)
+        if not producto:
+            return jsonify({'success': False, 'error': 'Producto no encontrado'}), 404
+        
+        db = get_db()
+        db.execute('DELETE FROM producto WHERE id = ?', (producto_id,))
+        db.commit()
+        
+        return jsonify({'success': True, 'message': 'Producto eliminado'})
     except Exception as e:
         return jsonify({'success': False, 'error': str(e)}), 400
 

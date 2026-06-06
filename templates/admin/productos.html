@@ -50,8 +50,8 @@
                                     {% endif %}
                                 </td>
                                 <td>
-                                    <button class="btn btn-sm btn-warning">Editar</button>
-                                    <button class="btn btn-sm btn-danger">Eliminar</button>
+                                    <button class="btn btn-sm btn-warning" onclick="editarProducto({{ producto.id }}, '{{ producto.nombre }}', '{{ producto.descripcion }}', {{ producto.precio }}, '{{ producto.categoria }}', {{ producto.stock }})">Editar</button>
+                                    <button class="btn btn-sm btn-danger" onclick="eliminarProducto({{ producto.id }}, '{{ producto.nombre }}')">Eliminar</button>
                                 </td>
                             </tr>
                             {% endfor %}
@@ -67,40 +67,48 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Nuevo Producto</h5>
+                    <h5 class="modal-title" id="tituloModal">Nuevo Producto</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
                     <form id="formProducto" enctype="multipart/form-data">
+                        <input type="hidden" id="productoId" name="id">
                         <div class="mb-3">
                             <label class="form-label">Nombre</label>
-                            <input type="text" class="form-control" name="nombre" required>
+                            <input type="text" class="form-control" id="nombreProducto" name="nombre" required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Descripción</label>
-                            <textarea class="form-control" name="descripcion" rows="3"></textarea>
+                            <textarea class="form-control" id="descripcionProducto" name="descripcion" rows="3"></textarea>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Precio</label>
-                            <input type="number" class="form-control" name="precio" step="0.01" required>
+                            <input type="number" class="form-control" id="precioProducto" name="precio" step="0.01" required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Categoría</label>
-                            <input type="text" class="form-control" name="categoria" required>
+                            <select class="form-control" id="categoriaProducto" name="categoria" required>
+                                <option value="">Selecciona una categoría</option>
+                                <option value="Paseo y Seguridad">🦮 Paseo y Seguridad</option>
+                                <option value="Alimentación y Bebederos">🍖 Alimentación y Bebederos</option>
+                                <option value="Descanso y Entretenimiento">🧸 Descanso y Entretenimiento</option>
+                                <option value="Higiene y Cuidado">🛁 Higiene y Cuidado</option>
+                                <option value="Viaje y Hogar">🚗 Viaje y Hogar</option>
+                            </select>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Stock</label>
-                            <input type="number" class="form-control" name="stock" required>
+                            <input type="number" class="form-control" id="stockProducto" name="stock" required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Imagen</label>
-                            <input type="file" class="form-control" name="imagen" accept="image/*">
+                            <input type="file" class="form-control" id="imagenProducto" name="imagen" accept="image/*">
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" onclick="guardarProducto()">Guardar</button>
+                    <button type="button" class="btn btn-primary" id="btnGuardar" onclick="guardarProducto()">Guardar</button>
                 </div>
             </div>
         </div>
@@ -108,25 +116,79 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        const modalProducto = new bootstrap.Modal(document.getElementById('nuevoProductoModal'));
+        let estaEditando = false;
+        
+        // Limpiar formulario cuando se cierra el modal
+        document.getElementById('nuevoProductoModal').addEventListener('hidden.bs.modal', function() {
+            document.getElementById('formProducto').reset();
+            document.getElementById('productoId').value = '';
+            document.getElementById('tituloModal').textContent = 'Nuevo Producto';
+            document.getElementById('btnGuardar').textContent = 'Guardar';
+            estaEditando = false;
+        });
+        
+        function editarProducto(id, nombre, descripcion, precio, categoria, stock) {
+            estaEditando = true;
+            document.getElementById('productoId').value = id;
+            document.getElementById('nombreProducto').value = nombre;
+            document.getElementById('descripcionProducto').value = descripcion;
+            document.getElementById('precioProducto').value = precio;
+            document.getElementById('categoriaProducto').value = categoria;
+            document.getElementById('stockProducto').value = stock;
+            document.getElementById('tituloModal').textContent = 'Editar Producto';
+            document.getElementById('btnGuardar').textContent = 'Actualizar';
+            modalProducto.show();
+        }
+        
         async function guardarProducto() {
             const form = document.getElementById('formProducto');
             const formData = new FormData(form);
+            const productoId = document.getElementById('productoId').value;
             
             try {
-                const response = await fetch('/admin/api/productos', {
-                    method: 'POST',
+                let url = '/admin/api/productos';
+                let method = 'POST';
+                
+                if (estaEditando && productoId) {
+                    url = `/admin/api/productos/${productoId}`;
+                    method = 'PUT';
+                }
+                
+                const response = await fetch(url, {
+                    method: method,
                     body: formData
                 });
                 
                 const data = await response.json();
                 if (data.success) {
-                    alert('Producto guardado exitosamente');
+                    alert(estaEditando ? 'Producto actualizado exitosamente' : 'Producto guardado exitosamente');
                     location.reload();
                 } else {
                     alert('Error: ' + data.error);
                 }
             } catch (error) {
                 alert('Error al guardar: ' + error);
+            }
+        }
+        
+        async function eliminarProducto(id, nombre) {
+            if (confirm(`¿Está seguro de que desea eliminar el producto "${nombre}"?`)) {
+                try {
+                    const response = await fetch(`/admin/api/productos/${id}`, {
+                        method: 'DELETE'
+                    });
+                    
+                    const data = await response.json();
+                    if (data.success) {
+                        alert('Producto eliminado exitosamente');
+                        location.reload();
+                    } else {
+                        alert('Error: ' + data.error);
+                    }
+                } catch (error) {
+                    alert('Error al eliminar: ' + error);
+                }
             }
         }
     </script>
